@@ -14,5 +14,4 @@ var schema = new Schema({
     changeOn: {type: Date}
 });
 
-// Nous exportons notre modèle avec comme nom "User", 'users' sera le nom de notre "table"
 exports.model = mongoose.model('User', schema, 'users');
