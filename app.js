@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var routes = require('./app/routes/index');
 var users = require('./app/routes/users');
@@ -58,5 +59,11 @@ app.use(function(err, req, res, next) {
   });
 });
 
+
+//Server mongoose
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/Xnov', function(err) {
+		  if (err) { throw err; }
+		  });
 
 module.exports = app;
