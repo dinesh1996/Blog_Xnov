@@ -8,6 +8,8 @@ var mongoose = require('mongoose');
 
 var routes = require('./app/routes/index');
 var users = require('./app/routes/users');
+var news = require('./app/routes/news');
+
 
 var app = express();
 
@@ -18,7 +20,9 @@ mongoose.connect('mongodb://localhost/Xnov', function(err) {
 
 
 // view engine setup
+
 app.set('views', path.join(__dirname, 'app/views'));
+
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
@@ -31,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/news',news);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
