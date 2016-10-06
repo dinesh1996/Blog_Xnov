@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 require('../models/User');
 
 var  mongoose = require('mongoose'),
@@ -20,11 +18,8 @@ const Users = {
             res.render('users/index', {title: "users", users: users});
         });
 
-
     },
     create: function (req, res) {
-
-
 
         var user = new User({
             name: req.body.name,
@@ -37,17 +32,12 @@ const Users = {
             status: "users",
             active: false
 
-
-
         });
         console.log(user);
         user.save(function (err) {
             if (err) {
 
                 throw err;
-
-
-
 
             }
             console.log('User inserted');
@@ -56,13 +46,9 @@ const Users = {
 
         });
 
-
     },
 
-
-
     preuppdate: function(req,res){
-
 
     User.findById(req.params.id, function (err, user) {
     res.render('users/UpdateUser', {title: "user", user: user});
@@ -71,14 +57,10 @@ const Users = {
 
     },
 
-
-
-
     update: function (req, res) {
 
         User.findById(req.params.id, function (err, user) {
             if (err) throw err;
-
 
             console.log(user);
 
@@ -101,7 +83,6 @@ const Users = {
             });
 
         });
-
 
     },
     delete: function (req, res) {
