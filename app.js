@@ -1,33 +1,46 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var routes = require('./app/routes/index');
-var users = require('./app/routes/users');
-var admins = require('./app/routes/admins');
-var news = require('./app/routes/news');
+"use strict";
 
 
-var app = express();
+
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const methodOverride = require('method-override'); //used to manipulate POST
+
+const routes = require('./app/routes/index');
+const users = require('./app/routes/users');
+const news = require('./app/routes/news');
+
+
+let app = express();
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/Xnov', function(err) {
+  if (err) { throw err; }
+});
+
 
 // view engine setup
-app.set('views', path.join(__dirname, './app/views'));
+
+app.set('views', path.join(__dirname, 'app/views'));
+
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/admins', admins);
 app.use('/news',news);
 
 // catch 404 and forward to error handler

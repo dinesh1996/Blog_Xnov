@@ -1,5 +1,8 @@
-var express = require('express');
-var router = express.Router();
+"use strict";
+
+
+const express = require('express');
+const router = express.Router();
 
 //Création d'un article
 router.post('/create',function(req,res){
