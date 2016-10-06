@@ -1,12 +1,52 @@
-var express = require('express');
-var router = express.Router();
-var users = require('../controllers/Users'); // Nous allons récuperer notre controlleur fait précédement
-/* GET users listing. */
-router.get('/profil',   users.index );
 
-router.post('/signup', function(req, res, next){
-  res.send('respond with a ressource');
+"use strict";
+
+
+const express = require('express');
+const router = express.Router();
+const users = require('../controllers/Users'); // Nous allons récuperer notre controlleur fait précédement
+/* GET users listing. */
+router.get('/',   users.index );
+
+
+
+router.get('/create', function (req,res,next) {
+  res.render('users/NewUserCreate')
+
 });
+
+router.post('/create',  users.create);
+
+router.get('/update/:id', users.preuppdate);
+
+
+router.put('/update/:id',  users.update);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.post('/login', function(req, res, next){
   res.send('respond with a ressource');
