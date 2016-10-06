@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-{
-  "name": "Blog_Xnov",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www",
-    "test": "mocha test/"
-  },
-  "dependencies": {
-    "body-parser": "~1.15.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
-    "express": "~4.13.4",
-    "morgan": "~1.7.0",
-    "pug": "^2.0.0-beta6",
-    "serve-favicon": "~2.3.0"
-  },
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-http": "^3.0.0"
-  }
-}
-=======
 {
   "name": "Blog_Xnov",
   "version": "0.0.0",
@@ -47,4 +23,3 @@
     "chai-http": "^3.0.0"
   }
 }
->>>>>>> 411ec110a5e47788de89266cbf84360367b25d43
