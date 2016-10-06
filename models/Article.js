@@ -1,14 +1,17 @@
-var mongoose = require('mongoose'),
+"use strict";
+const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 
-var schema = new Schema({
+const schema = new Schema({
     title: {type: String, required: true},
     contents: {type: String, required: true},
     activated: {type: String, default: true},
     category: {type: [String], require: true},
-    createdOn: {type: Date, default: Date.now},
-    changeOn: {type: Date}
+    createdOn: {type: Date},
+    changeOn: {type: Date},
+    comments: [Comments]
+
 });
 
-exports.model = mongoose.model('Arcticle', schema, 'articles');
+exports.model = mongoose.model('Article', schema, 'articles');
