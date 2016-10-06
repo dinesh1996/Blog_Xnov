@@ -20,6 +20,11 @@ router.post('/create',  users.create);
 router.get('/update/:id', users.preuppdate);
 
 
+
+
+
+
+
 router.put('/update/:id',  users.update);
 
 
