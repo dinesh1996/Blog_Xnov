@@ -31,7 +31,7 @@ router.put('/update/:id',  users.update);
 
 
 
-
+router.delete('/delete/:id', users.delete);
 
 
 

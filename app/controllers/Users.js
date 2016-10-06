@@ -51,7 +51,8 @@ const Users = {
 
             }
             console.log('User inserted');
-            res.redirect('/users/')
+            alert('User inserted');
+            res.redirect('/users/');
 
         });
 
@@ -95,6 +96,7 @@ const Users = {
                 if (err) throw err;
 
                 console.log('User successfully updated!');
+                alert('User successfully updated!');
                 res.redirect("/users/");
             });
 
@@ -104,6 +106,19 @@ const Users = {
     },
     delete: function (req, res) {
 
+        User.findById(req.params.id, function (err, user) {
+            if (err) throw err;
+
+            // delete him
+            user.remove(function (err) {
+                if (err) throw err;
+
+                console.log('User successfully deleted!');
+                alert('User successfully deleted!');
+            });
+        });
+
+        res.redirect('/users/');
     }
 };
 
