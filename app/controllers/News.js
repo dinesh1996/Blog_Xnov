@@ -7,10 +7,27 @@ const mongoose = require('mongoose'),
 
 const News = {
 	create: function(req,res){
+	if(req.body.title && req.body.category && req.body.content){
+		let newArticle = new Article({
+
+		});
+
+		newArticle.save(function(err){
+			if(!err){
+				console.log('Création réussie');
+			}
+			res.render('news/list');
+		});
+
+	}else{
+		console.log('Aucun champs rempli');
+		res.redirect('news/create');
+	}
+	
 
 	},
 	read: function(req,res){
-
+		
 	},
 	update: function(req,res){
 
@@ -21,6 +38,6 @@ const News = {
 	getAll:function(req,res){
 
 	},
-}
+};
 
 module.exports = News;
