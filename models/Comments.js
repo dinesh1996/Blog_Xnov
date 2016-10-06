@@ -7,7 +7,7 @@ const mongoose = require('mongoose'),
 const schema = new Schema({
     content: {type: String, required: true},
     createdOn: {type: Date},
-    article: Article
+    article: {type: Article}
 });
 
 exports.model = mongoose.model('Comment', schema, commments);
