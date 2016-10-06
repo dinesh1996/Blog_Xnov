@@ -4,7 +4,7 @@
 
 require('../models/User');
 
-var  mongoose = require('mongoose'),
+const  mongoose = require('mongoose'),
     User = mongoose.model('User');
 
 
@@ -26,7 +26,7 @@ const Users = {
 
 
 
-        var user = new User({
+        let user = new User({
             name: req.body.name,
             firstName: req.body.firstName,
             email: req.body.email,
@@ -51,7 +51,7 @@ const Users = {
 
             }
             console.log('User inserted');
-            alert('User inserted');
+
             res.redirect('/users/');
 
         });
@@ -61,7 +61,7 @@ const Users = {
 
 
 
-    preuppdate: function(req,res){
+    preupdate: function(req,res){
 
 
     User.findById(req.params.id, function (err, user) {
@@ -70,8 +70,6 @@ const Users = {
 });
 
     },
-
-
 
 
     update: function (req, res) {
@@ -87,7 +85,20 @@ const Users = {
             user.firstName =  req.body.firstName;
             user.email =  req.body.email;
             user.pseudo =req.body.pseudo;
-            user.adress =  req.body.adress;
+
+            user.addres=  req.body.adress;
+            user.changeOn =  new Date();
+
+
+
+
+
+
+
+
+
+
+
 
 
 //req.body.map(v => req.session.flash('', v));
@@ -96,7 +107,7 @@ const Users = {
                 if (err) throw err;
 
                 console.log('User successfully updated!');
-                alert('User successfully updated!');
+
                 res.redirect("/users/");
             });
 
@@ -104,6 +115,19 @@ const Users = {
 
 
     },
+
+
+    predelete: function(req,res) {
+
+
+        User.findById(req.params.id, function (err, user) {
+            res.render('users/DeleteUser', {title: "user", user: user});
+            if (err) throw err;
+        });
+    },
+
+
+
     delete: function (req, res) {
 
         User.findById(req.params.id, function (err, user) {
@@ -114,7 +138,7 @@ const Users = {
                 if (err) throw err;
 
                 console.log('User successfully deleted!');
-                alert('User successfully deleted!');
+
             });
         });
 

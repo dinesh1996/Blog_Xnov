@@ -13,6 +13,7 @@ const schema = new Schema({
     category: {type: [String], require: true},
     createdOn: {type: Date},
     changeOn: {type: Date},
+    createdBy: ,
     comments: [Comments]
 
 });
