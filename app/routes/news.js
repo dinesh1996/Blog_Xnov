@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 
 const news = require('../controllers/News.js');
-
 //Création d'un article
 router.post('/create',news.create);
 
