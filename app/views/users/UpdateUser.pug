@@ -1,0 +1,21 @@
+//
+   Created by mac on 06/10/2016.
+
+
+
+
+
+html
+
+
+
+    form(method='POST' action="/users/update/"+ user._id +"?_method=PUT")
+        input(type="text" name="name" placeholder="name" value= user.name)
+        input(type="text" name="firstName" placeholder="firstName" value= user.firstName)
+        input(type="text" name="pseudo" placeholder="pseudo" value= user.pseudo)
+        input(type="password" name="mps" placeholder="mps" )
+        input(type="password" name="mps" placeholder="mps")
+        input(type="email" name="email" placeholder="email" value= user.email)
+        input(type="text" name="adress" placeholder="adress" value= user.adress)
+        button(type="submit") valider
+
