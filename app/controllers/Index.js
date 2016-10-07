@@ -1,5 +1,6 @@
 "use strict";
 
+require('../models/User.js');
 const mongoose = require('mongoose'),
     User = mongoose.model('User');
 

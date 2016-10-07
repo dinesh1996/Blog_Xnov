@@ -2,6 +2,7 @@
 /**
  * Created by mac on 05/10/2016.
  */
+
 "use strict";
 
 const mongoose = require('mongoose'),
@@ -11,7 +12,6 @@ const mongoose = require('mongoose'),
 const schema = new Schema({
     content: {type: String, required: true},
     createdOn: {type: Date},
-    article: Article
-});
 
-exports.model = mongoose.model('Comment', schema, commments);
+});
+module.exports= schema;

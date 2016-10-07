@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+
+    ul
+        each article in articles
+            br
+            li= article.title
+            li= article._id
+            li= article.contents
+            li= article.activated
+
+

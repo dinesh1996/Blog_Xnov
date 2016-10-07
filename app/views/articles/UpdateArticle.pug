@@ -1,0 +1,25 @@
+
+html
+
+
+
+
+
+
+
+
+
+
+    form(method='POST' action="/articles/update/" + article._id + "?_method=PUT")
+
+        input(type="text" name="title" placeholder="title" value= article.title)
+        textarea(name="contents" rows='4', cols='50' placeholder="Content")
+            =article.contents
+
+
+        button(type="submit") valider
+
+
+
+
+

@@ -17,13 +17,7 @@ router.get('/create', function (req,res,next) {
 
 router.post('/create',  users.create);
 
-router.get('/update/:id', users.preuppdate);
-
-
-
-
-
-
+router.get('/update/:id', users.preupdate);
 
 router.put('/update/:id',  users.update);
 
@@ -31,7 +25,10 @@ router.put('/update/:id',  users.update);
 
 
 
+router.get('/delete/:id', users.predelete);
 
+
+router.delete('/delete/:id', users.delete);
 
 
 
