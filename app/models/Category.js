@@ -4,6 +4,7 @@
 "use strict";
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
+const Articles = require('./Articles');
 
 
 
@@ -11,7 +12,7 @@ const schema = new Schema({
     name: {type: String, required: true},
     createdOn: {type: Date},
     changeOn: {type: Date},
-    article: [Article]
+    article: [Articles]
 });
 
-exports.model = mongoose.model('Category', schema, 'categories');
+module.exports = mongoose.model('Category', schema, 'categories');

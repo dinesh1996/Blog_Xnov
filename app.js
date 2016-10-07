@@ -13,7 +13,7 @@ const methodOverride = require('method-override'); //used to manipulate POST
 
 const routes = require('./app/routes/index');
 const users = require('./app/routes/users');
-const news = require('./app/routes/news');
+const articles = require('./app/routes/articles');
 
 
 let app = express();
@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/news',news);
+app.use('/articles',articles);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

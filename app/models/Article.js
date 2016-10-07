@@ -4,6 +4,7 @@
 "use strict";
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
+const Comment = require('./Comment');
 
 
 const schema = new Schema({
@@ -13,8 +14,9 @@ const schema = new Schema({
     category: {type: [String], require: true},
     createdOn: {type: Date},
     changeOn: {type: Date},
-    comments: [Comments]
+    createdBy: {type: String},
+    comments: [Comment]
 
 });
 
-exports.model = mongoose.model('Article', schema, 'articles');
+module.exports = mongoose.model('Article', schema, 'articles');
