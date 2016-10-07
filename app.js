@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override'); //used to manipulate POST
 const connect = require('connect');
 const passwordHash = require('password-hash');
-
+const session = require('express-session');
 
 const routes = require('./app/routes/index');
 const users = require('./app/routes/users');
@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/admins', admins);
+//app.use('/admins', admins);
 app.use('/news',news);
 
 // catch 404 and forward to error handler
@@ -77,9 +77,12 @@ app.use(function(err, req, res, next) {
 
 
 //Server mongoose
+/*
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/Xnov', function(err) {
-		  if (err) { throw err; }
-		  });
+		if (err) { throw err;  }
 
+		});
+
+*/		
 module.exports = app;

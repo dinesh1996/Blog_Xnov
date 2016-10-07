@@ -5,6 +5,8 @@
 const express = require('express');
 const router = express.Router();
 
+const index = require('../controllers/Index.js');
+const user = require('../controllers/Users.js');
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
@@ -26,9 +28,7 @@ router.get('/login/forgot', function(req, res, next){
 
 
 //Post
-router.post('/signup', function(req, res, next){
-  res.send('respond with a ressource');
-});
+router.post('/signup',user.create);
 
 router.post('/login', function(req, res, next){
   res.send('respond with a ressource');

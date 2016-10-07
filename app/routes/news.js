@@ -2,7 +2,9 @@
 const express = require('express');
 const router = express.Router();
 
-const news = require('../controllers/News.js');
+/*
+const news = require('');
+
 //Création d'un article
 router.post('/create',news.create);
 
@@ -17,6 +19,6 @@ router.get('/all',news.getAll);
 
 //Affiche l'article sélectionné
 router.get('/read',news.read);
-
+*/
 module.exports = router;
 
