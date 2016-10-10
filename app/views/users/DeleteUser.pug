@@ -1,12 +1,6 @@
-//
-   Created by mac on 06/10/2016.
+extends ../layout
+block content
 
-
-
-html
-
-p vous allez  perdre toutes vos donnees
-
+  p vous allez  perdre toutes vos donnees
     form(method="POST" action="/users/delete/"+ user._id +"?_method=DELETE")
-        button(type="submit") valider
-
+      button(type="submit") valider

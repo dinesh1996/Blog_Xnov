@@ -1,16 +1,26 @@
-//
-   Created by mac on 05/10/2016.
-html
+extends ../layout
+block content
 
-
-
-
-form(method='POST')
-    input(type="text" name="name" placeholder="name")
-    input(type="text" name="firstName" placeholder="firstName")
-    input(type="text" name="pseudo" placeholder="pseudo")
-    input(type="password" name="mps" placeholder="mps")
-    input(type="password" name="mps" placeholder="mps")
-    input(type="email" name="email" placeholder="email")
-    button(type="submit") valider
-
+  form(method='POST' action="/users/create")
+      input(type="text" name="name" placeholder="Entrez votre prénom")
+      br
+      br
+      input(type="text" name="firstName" placeholder="Entrez votre prénom")
+      br
+      br
+      input(type="text" name="pseudo" placeholder="Entrez votre pseudo")
+      br
+      br
+      input(type="text" name="adress" placeholder="Entrez votre adresse")
+      br
+      br
+      input(type="password" name="mps" placeholder="Entrez votre mot de passe")
+      br
+      br
+      input(type="password" name="confMps" placeholder="Réécrivez votre mot de passe")
+      br
+      br
+      input(type="email" name="email" placeholder="Entrez votre email")
+      br
+      br
+      button svalider

@@ -1,5 +1,4 @@
 "use strict";
-
 require('../models/User.js');
 const mongoose = require('mongoose'),
     User = mongoose.model('User');
@@ -7,29 +6,39 @@ const mongoose = require('mongoose'),
 const passwordHash = require('password-hash');
 
 const Index = {
-	
+
 	getLogin: function(req,res){
-		res.render('login');
+		res.render('users/connect');
 	},
 	//Connexion
 	logIn: function(req,res){
-		if(req.body.pseudo && req.body.mdp){
 
-		let mdphash = passwordHash.generate(req.body.mdp); 
-		User.findOne({'pseudo': req.body.pseudo, 'mps': mdphash}, function(err,person){
-			if (err) throw (err);
-			req.session = person;
-		});
-		}else{
+		if(req.body.pseudo && req.body.mdp){
+  		let mdphash = passwordHash.generate(req.body.mdp);
+  		User.findOne({'pseudo': req.body.pseudo, 'mps': mdphash},'name', function(err,user){
+  			if (err) throw (err);
+        if(user){
+          req.session.name = user.name;
+          console.log('Connexion en cours')
+          console.log(req.session);
+          res.redirect('/users/');
+        }else{
+          res.send('Echec du find');
+        }
+        });
+
+		} else{
 			console.log('Champs manquant');
-			res.redirect('/');
+			res.redirect('/login');
 		}
 
 	},
+  //Déconnexion
 	logOut: function(req,res){
 		req.session.destroy(function(err){
 			if (err) throw err;
 		});
 	}
-};
 
+};
+module.exports = Index;

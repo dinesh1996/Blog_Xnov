@@ -1,13 +1,10 @@
 extends ../layout
-
 block content
+
     h1= title
     p Welcome to #{title}
-
     ul
         each user in users
             li= user.name
-            li= user._id
+            li= user.firstName
             li= user.activated
-
-

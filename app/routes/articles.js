@@ -1,6 +1,4 @@
 "use strict";
-
-
 const express = require('express');
 const router = express.Router();
 const articles = require('../controllers/Articles');
@@ -37,4 +35,3 @@ router.get('/read',function(req,res){
 });
 
 module.exports = router;
-

@@ -1,21 +1,26 @@
-//
-   Created by mac on 06/10/2016.
-
-
-
-
-
-html
-
-
+extends ../layout
+block content
 
     form(method='POST' action="/users/update/"+ user._id +"?_method=PUT")
         input(type="text" name="name" placeholder="name" value= user.name)
+        br
+        br
         input(type="text" name="firstName" placeholder="firstName" value= user.firstName)
+        br
+        br
         input(type="text" name="pseudo" placeholder="pseudo" value= user.pseudo)
+        br
+        br
         input(type="password" name="mps" placeholder="mps" )
+        br
+        br
         input(type="password" name="mps" placeholder="mps")
+        br
+        br
         input(type="email" name="email" placeholder="email" value= user.email)
+        br
+        br
         input(type="text" name="adress" placeholder="adress" value= user.adress)
+        br
+        br
         button(type="submit") valider
-
