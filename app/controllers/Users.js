@@ -1,9 +1,7 @@
 "use strict";
 
-const  mongoose = require('mongoose'),
-       User = mongoose.model('User');
-
-const passwordHash = require('password-hash');
+var User = require('../models/User');
+const crypto = require('crypto');
 
 const Users = {
 	//Fonction réservée pour l'admin
@@ -19,45 +17,46 @@ const Users = {
 
 	create: function (req, res) {
 
-    console.log(req.body.name);
+    /*console.log(req.body.name);
     console.log(req.body.firstName);
     console.log(req.body.email);
     console.log(req.body.pseudo);
     console.log(req.body.adress);
     console.log(req.body.mps);
     console.log(req.body.confMps);
-    console.log(req.body.firstName);
-		//Faire une vérif de l'existence de l'utilisateur
+    console.log(req.body.firstName);*/
+    //Faire une vérif de l'existence de l'utilisateur
 		if(req.body.name && req.body.firstName && req.body.email && req.body.pseudo && req.body.adress && req.body.mps && req.body.confMps){
 
 			//On regarde si il y a un utilisateur déjà existant avec
-			User.findOne({'name': req.body.name,'firstName':req.body.firstName,'email': req.body.email,'pseudo':req.body.pseudo,'adress':req.body.adress,'mps':req.body.mps},function(err, user){
+			User.findOne({name: req.body.name, firstName:req.body.firstName, email: req.body.email, pseudo:req.body.pseudo, address:req.body.adress},function(err, user){
 				if (err) throw (err);
-
 				if(user){
-					res.redirect('/user/create');
+					res.redirect('/login');
 				}
 
 			});
       if(req.body.mps == req.body.confMps){
-        let user = new User({
+
+        var user = new User({
   				name: req.body.name,
   				firstName: req.body.firstName,
   				email: req.body.email,
   				pseudo: req.body.pseudo,
-  				adress: req.body.adress,
-  				mps: passwordHash.generate(req.body.mps),
+  				address: req.body.adress,
+  				mdp: crypto.createHash('sha1').update(req.body.mps).digest('hex'),
   				createdOn: new Date(),
   				status: true,
   				activated: true
-  			});
+        });
 
   			console.log(user);
   			user.save(function (err) {
   				if (err) throw err;
   				console.log('User inserted');
-  				res.redirect('/users/');
+  				res.redirect('/login');
   			});
+
       }
 
 		} else{
@@ -104,7 +103,7 @@ const Users = {
 
 			if(req.body.mps && req.body.confMps){
 				if(req.body.mps == req.body.confMps){
-					user.mps = passwordHash.generate(req.body.mps);
+					user.mps = crypto.createHash('sha1').update(req.body.mps).digest('hex');
 				}
 			}
 

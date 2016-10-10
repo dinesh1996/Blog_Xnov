@@ -1,5 +1,6 @@
 extends ../layout
 block content
+  button(href="/users/create") S'inscrire
   form(method="POST" action="/login")
     input(type="text" name="pseudo")
     br
@@ -8,4 +9,3 @@ block content
     br
     br
     button Se connecter
-    button(href="/users/create") S'inscrire

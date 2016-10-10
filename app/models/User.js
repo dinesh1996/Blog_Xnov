@@ -10,6 +10,7 @@ const schema = new Schema({
     firstName: {type: String, required: true},
     address: {type: String},
     email: {type: String, required: true},
+    mdp: {type: String, required: true},
     activated: {type: Boolean, default: true}, //1 = active ,,, 0 inactive
     status: {type: Boolean, default: 0},// 1 = admin ,,,, 0 = user
     createdOn: {type:Date },

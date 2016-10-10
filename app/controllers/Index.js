@@ -1,9 +1,7 @@
 "use strict";
-require('../models/User.js');
-const mongoose = require('mongoose'),
-    User = mongoose.model('User');
+const User = require('../models/User.js');
 
-const passwordHash = require('password-hash');
+const crypto = require('crypto');
 
 const Index = {
 
@@ -14,17 +12,21 @@ const Index = {
 	logIn: function(req,res){
 
 		if(req.body.pseudo && req.body.mdp){
-  		let mdphash = passwordHash.generate(req.body.mdp);
-  		User.findOne({'pseudo': req.body.pseudo, 'mps': mdphash},'name', function(err,user){
-  			if (err) throw (err);
-        if(user){
-          req.session.name = user.name;
-          console.log('Connexion en cours')
-          console.log(req.session);
-          res.redirect('/users/');
-        }else{
-          res.send('Echec du find');
-        }
+
+			console.log(req.body.mdp);
+      let mdphash = crypto.createHash('sha1').update(req.body.mdp).digest('hex');
+      console.log(mdphash);
+  		User.findOne({pseudo: req.body.pseudo,mdp: mdphash },'name firstName email pseudo address ', function(err,user){
+      			if (err) throw (err);
+              console.log(user);
+            if(user){
+                  req.session = user;
+                  console.log('Connexion en cours');
+                  res.redirect('/users/');
+									console.log("Connexion réussie");
+            } else{
+              res.send('Echec du find');
+            }
         });
 
 		} else{

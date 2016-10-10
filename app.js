@@ -9,8 +9,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override'); //used to manipulate POST
 const connect = require('connect');
-const passwordHash = require('password-hash');
 const session = require('express-session');
+const crypto = require('crypto');
 
 const routes = require('./app/routes/index');
 const users = require('./app/routes/users');
