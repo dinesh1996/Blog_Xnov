@@ -63,7 +63,7 @@ const Articles = {
 
 
         Article.findById(req.params.id, function (err, article) {
-            res.render('articles/UpdateArticle', {title: "article", article: article});
+            res.render('articles/UpdateArticle', {title: "article", article: article}, {title: "category", article: category});
             if (err) throw err;
         });
 

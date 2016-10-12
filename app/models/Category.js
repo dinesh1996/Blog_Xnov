@@ -4,15 +4,20 @@
 "use strict";
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-const Articles = require('./Articles');
+
+const Articles = require('./Article');
 
 
 
 const schema = new Schema({
-    name: {type: String, required: true},
+    title: {type: String, required: true},
     createdOn: {type: Date},
     changeOn: {type: Date},
-    article: [Articles]
+    activated: {type: Boolean},
+    article: { type: mongoose.Schema.Types.ObjectId, ref:'Articles'}
 });
 
 module.exports = mongoose.model('Category', schema, 'categories');
+
+
+

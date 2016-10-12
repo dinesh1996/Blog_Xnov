@@ -1,8 +1,12 @@
 /**
  * Created by Julien on 05/10/2016.
  */
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const articles = require('../controllers/Articles');
+const users = require('../controllers/Users');
+const categories = require('../controllers/Categories');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -41,22 +45,30 @@ router.delete('/news/id', function (req,res, next) {
     res.send('respond with a ressource');
 });
 
-router.get('/categories', function (req,res, next) {
-    res.send('respond with a ressource');
+
+
+
+
+
+router.get('/categories', categories.index);
+
+router.get('/categories/create', function (req,res, next) {
+    res.render('categories/NewCategoryCreate');
 });
 
-router.get('/categories/id', function (req,res, next) {
-    res.send('respond with a ressource');
-});
+router.post('/categories/create',  categories.create);
 
-router.post('/categories/id', function (req,res, next) {
-    res.send('respond with a ressource');
-});
+router.get('/categories/update/:id', categories.preupdate);
+router.put('/categories/update/:id', categories.update);
 
-router.delete('/categories/id', function (req,res, next) {
-    res.send('respond with a ressource');
-});
+
+router.get('/categories/delete/:id', categories.predelete);
+router.delete('/categories/delete/:id', categories.delete);
+
 
 
 module.exports = router;
+
+
+
 
