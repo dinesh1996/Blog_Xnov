@@ -5,7 +5,8 @@
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-const Articles = require('./Article');
+
+const Article = require('mongoose').model('Article').schema;
 
 
 
@@ -14,7 +15,7 @@ const schema = new Schema({
     createdOn: {type: Date},
     changeOn: {type: Date},
     activated: {type: Boolean},
-    article: { type: mongoose.Schema.Types.ObjectId, ref:'Articles'}
+    article: [{type: Schema.ObjectId, ref: 'Article'}] // assuming you name your model Task
 });
 
 module.exports = mongoose.model('Category', schema, 'categories');

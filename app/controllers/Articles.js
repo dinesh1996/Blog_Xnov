@@ -8,6 +8,7 @@
 
 
 const Article = require('../models/Article');
+const Category = require('../models/Category');
 
 
 const Articles = {
@@ -28,26 +29,40 @@ const Articles = {
 
 
 
+         let categoryUsed =  req.body.category;
+
+        Category.findOne({title:categoryUsed}, function (err, cat) {
+            if (err) throw err;
+           console.log(cat);
+
         let article = new Article({
             title: req.body.title,
             contents: req.body.contents,
-            category: req.body.category,
-            createdOn:  new Date(),
-           // createdBy: req.session.createdBy
+            category: cat,
+            createdOn: new Date(),
+            changeOn: new Date()
+
+
+
 
 
 
         });
+           // createdBy: req.session.createdBy
+
+
+
+
         console.log(article);
         article.save(function (err) {
-            if (err) {
-
-                throw err;
+            if (err) throw err;
 
 
 
+        });
 
-            }
+
+
             console.log('Article added');
 
             res.redirect('/articles/');
@@ -85,6 +100,7 @@ const Articles = {
             article.pseudo =req.body.pseudo;
             article.adress =  req.body.adress;
             article.changeOn = new Date();
+
 
 
 

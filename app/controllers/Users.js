@@ -31,8 +31,8 @@ const Users = {
             firstName: req.body.firstName,
             email: req.body.email,
             pseudo: req.body.pseudo,
-            adress: req.body.adress,
-            mps: req.body.mps,
+
+            password: req.body.password,
             createdOn: new Date(),
             status: true,
             activated: true

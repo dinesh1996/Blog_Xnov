@@ -4,11 +4,26 @@
 
 const Category = require('../models/Category');
 
+
 const Categories = {
     /**
      * @param req La requête entrante
      * @param res Ce qui est renvoyé au navigateur
      */
+
+
+
+    getCategory: function (req, res) {
+
+    Category.find({}, function (err, categories) {
+        if (err) throw err;
+        res.render('articles/NewArticleCreate',{title: "categories", categories: categories});
+    });
+
+
+},
+
+
     index: function (req, res) {
 
         Category.find({}, function (err, categories) {
@@ -27,6 +42,7 @@ const Categories = {
 
             createdOn: new Date(),
             activated: true
+
 
 
 

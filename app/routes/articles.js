@@ -4,16 +4,14 @@
 const express = require('express');
 const router = express.Router();
 const articles = require('../controllers/Articles');
+const categories = require('../controllers/Categories');
 
 
 router.get('/',   articles.index );
 
 
 
-router.get('/create', function (req,res,next) {
-	res.render('articles/NewArticleCreate')
-
-});
+router.get('/create', categories.getCategory);
 
 router.post('/create',  articles.create);
 
