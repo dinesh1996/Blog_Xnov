@@ -3,6 +3,8 @@ const User = require('../models/User.js');
 
 const crypto = require('crypto');
 
+let sess;
+
 const Index = {
 
 	getLogin: function(req,res){
@@ -13,20 +15,24 @@ const Index = {
 
 		if(req.body.pseudo && req.body.mdp){
 
-			console.log(req.body.mdp);
       let mdphash = crypto.createHash('sha1').update(req.body.mdp).digest('hex');
-      console.log(mdphash);
   		User.findOne({pseudo: req.body.pseudo,mdp: mdphash },'name firstName email pseudo address ', function(err,user){
       			if (err) throw (err);
-              console.log(user);
             if(user){
-                  req.session = user;
-                  console.log('Connexion en cours');
-                  res.redirect('/users/');
+									sess = req.session;
+									sess.name = user.name;
+									sess.firstName = user.firstName;
+									sess.email = user.email;
+									sess.pseudo = user.pseudo;
+									sess.address = user.address;
+									sess.save();
+									console.log('Connexion en cours');
+                  res.redirect('/users/profil');
 									console.log("Connexion réussie");
             } else{
               res.send('Echec du find');
             }
+
         });
 
 		} else{

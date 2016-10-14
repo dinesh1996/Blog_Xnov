@@ -1,5 +1,4 @@
 "use strict";
-
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -11,6 +10,8 @@ const methodOverride = require('method-override'); //used to manipulate POST
 const connect = require('connect');
 const session = require('express-session');
 const crypto = require('crypto');
+const MongoStore = require('connect-mongo')(session);
+
 
 const routes = require('./app/routes/index');
 const users = require('./app/routes/users');
@@ -23,7 +24,11 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: true },
+  store: new MongoStore({url: 'mongodb://localhost/blog',
+   ttl: 14 * 24 * 60 * 60,
+}),
+  autoRemove: 'native'
 }));
 
 mongoose.Promise = global.Promise;
@@ -41,7 +46,8 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -87,8 +93,7 @@ app.use(function(err, req, res, next) {
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/Xnov', function(err) {
 		if (err) { throw err;  }
-
 		});
-
 */
+
 module.exports = app;

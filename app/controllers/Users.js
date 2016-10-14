@@ -2,8 +2,9 @@
 
 var User = require('../models/User');
 const crypto = require('crypto');
-
+var sess;
 const Users = {
+
 	//Fonction réservée pour l'admin
 	index: function (req, res) {
 
@@ -13,6 +14,53 @@ const Users = {
 		});
 
 
+	},
+
+	//Connexion
+	logIn: function(req,res){
+			sess = req.session;
+		if(req.body.pseudo && req.body.mdp){
+
+			let mdphash = crypto.createHash('sha1').update(req.body.mdp).digest('hex');
+			User.findOne({pseudo: req.body.pseudo,mdp: mdphash },'name firstName email pseudo address ', function(err,user){
+						if (err) throw (err);
+						if(user){
+									req.session.name = user.name;
+									req.session.firstName = user.firstName;
+									req.session.email = user.email;
+									req.session.pseudo = user.pseudo;
+									req.session.address = user.address;
+									req.session.save(function(err){
+										if (err) throw (err);
+										console.log("session saved");
+										res.redirect('/users/profil');
+									});
+									console.log('Connexion en cours');
+									console.log("Connexion réussie");
+						} else{
+							res.send('Echec de la connexion');
+							res.redirect('/login');
+						}
+				});
+		} else{
+			console.log('Champs manquant');
+			res.redirect('/login');
+		}
+	},
+//Affiche le profil
+	getProfil : function(req,res){
+		sess = req.session;
+		/*sess.reload(function(err){
+			if (err) throw (err);
+			console.log("Session updated");
+			res.render('users/profil',{title: "Profil",
+			nom: sess.name,
+			prenom: sess.firstName,
+			adresse: sess.address,
+			email: sess.email,
+			pseudo: sess.pseudo});
+			console.log(sess.name);
+		});*/
 	},
 
 	create: function (req, res) {
@@ -36,6 +84,7 @@ const Users = {
 				}
 
 			});
+
       if(req.body.mps == req.body.confMps){
 
         var user = new User({
@@ -56,14 +105,11 @@ const Users = {
   				console.log('User inserted');
   				res.redirect('/login');
   			});
-
       }
-
 		} else{
 			console.log('Champs manquant ou les mdp insérés ne sont pas les mêmes.');
 			res.redirect('/users/create');
 		}
-
 	},
 
 	preupdate: function(req,res){

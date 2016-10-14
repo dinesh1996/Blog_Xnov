@@ -23,8 +23,6 @@ router.get('/login/forgot', function(req, res, next){
 //Post
 router.post('/signup',user.create);
 
-router.post('/login', index.logIn);
-
 router.post('/login/forgot', function(req, res, next){
   res.send('respond with a ressource');
 });
