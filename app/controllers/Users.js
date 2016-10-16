@@ -85,7 +85,7 @@ const Users = {
             user.firstName =  req.body.firstName;
             user.email =  req.body.email;
             user.pseudo =req.body.pseudo;
-
+            user.category = req.body.category._id;
             user.addres=  req.body.adress;
             user.changeOn =  new Date();
 

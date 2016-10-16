@@ -15,7 +15,7 @@ router.get('/create', categories.getCategory);
 
 router.post('/create',  articles.create);
 
-router.get('/update/:id', articles.preupdate);
+router.get('/update/:id',  articles.preupdate);
 
 router.put('/update/:id',  articles.update);
 

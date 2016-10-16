@@ -64,7 +64,6 @@ const Articles = {
 
 
             console.log('Article added');
-
             res.redirect('/articles/');
 
         });
@@ -78,9 +77,20 @@ const Articles = {
 
 
         Article.findById(req.params.id, function (err, article) {
-            res.render('articles/UpdateArticle', {title: "article", article: article}, {title: "category", article: category});
+            Category.find({}, function (err, categories) {
+
+                res.render('articles/UpdateArticle', {titleC: "categories", categories: categories,titleA: "article", article: article});
+               // console.log({titleC: "categories", categories: categories,titleA: "article", article: article});
+                if (err) throw err;
+               //console.log(category);
+
+            });
             if (err) throw err;
+            //console.log(article);
+
         });
+
+
 
     },
 
@@ -90,31 +100,34 @@ const Articles = {
         Article.findById(req.params.id, function (err, article) {
             if (err) throw err;
 
-
-            console.log(article);
-
-            // change values of Article
-            article.title = req.body.title;
-            article.contents =  req.body.contents;
-            article.category =  req.body.category;
-            article.pseudo =req.body.pseudo;
-            article.adress =  req.body.adress;
-            article.changeOn = new Date();
-
-
-
-
-
-
-            // save the Aricles
-            article.save(function (err) {
+            let categoryUsed = req.body.category;
+            Category.findOne({title: categoryUsed}, function (err, cat) {
                 if (err) throw err;
+
+                console.log(cat);
+              // console.log("categoryrergeregrerg " + req.body.category._id);
+
+                // change values of Article
+                article.title = req.body.title;
+                article.contents = req.body.contents;
+                article.category = cat;
+                article.pseudo = req.body.pseudo;
+                article.adress = req.body.adress;
+                article.changeOn = new Date();
+
+
+                // save the Aricles
                 console.log(article);
-                console.log('Article successfully updated!');
+                article.save(function (err) {
+                    if (err) throw err;
+                });
+                    console.log(article);
+                    console.log('Article successfully updated!');
 
-                res.redirect("/articles/");
+                    res.redirect("/articles/");
+
+
             });
-
         });
 
 
