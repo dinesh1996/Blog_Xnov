@@ -1,8 +1,9 @@
 "use strict";
 
-var User = require('../models/User');
+const User = require('../models/User');
 const crypto = require('crypto');
-var sess;
+let sess;
+
 const Users = {
 
 	//Fonction réservée pour l'admin
@@ -18,25 +19,32 @@ const Users = {
 
 	//Connexion
 	logIn: function(req,res){
-			sess = req.session;
 		if(req.body.pseudo && req.body.mdp){
 
 			let mdphash = crypto.createHash('sha1').update(req.body.mdp).digest('hex');
-			User.findOne({pseudo: req.body.pseudo,mdp: mdphash },'name firstName email pseudo address ', function(err,user){
+			User.findOne({pseudo: req.body.pseudo,mdp: mdphash },'name id firstName email pseudo address ', function(err,user){
 						if (err) throw (err);
 						if(user){
-									req.session.name = user.name;
-									req.session.firstName = user.firstName;
-									req.session.email = user.email;
-									req.session.pseudo = user.pseudo;
-									req.session.address = user.address;
-									req.session.save(function(err){
+									sess = req.session;
+									sess.name = user.name;
+									sess.firstName = user.firstName;
+									sess.email = user.email;
+									sess.pseudo = user.pseudo;
+									sess.address = user.address;
+									sess.userID = user.id;
+									res.redirect('/users/profil');
+									/*sess.save(function(err){
 										if (err) throw (err);
-										console.log("session saved");
-										res.redirect('/users/profil');
-									});
+										 res.end("done");
+									 });*/
+									/*req.session.save(function(err){
+										if (err) throw (err);
+										//res.redirect('/users/profil');
+									//console.log(req.session);
+									res.end();
 									console.log('Connexion en cours');
 									console.log("Connexion réussie");
+								});*/
 						} else{
 							res.send('Echec de la connexion');
 							res.redirect('/login');
@@ -47,12 +55,34 @@ const Users = {
 			res.redirect('/login');
 		}
 	},
+	//Déconnexion
+	logOut: function(req,res){
+		req.session.destroy(function(err){
+			if (err) throw err;
+		});
+	},
 //Affiche le profil
 	getProfil : function(req,res){
-		sess = req.session;
-		/*sess.reload(function(err){
+		/*req.session.regenerate(function(err){
 			if (err) throw (err);
-			console.log("Session updated");
+			console.log("session regenerated");
+
+				req.session.reload(function(err){
+
+						console.log(req.session.name);
+						if (err) throw (err);
+						console.log("Session loaded");
+		});
+
+	});*/
+		res.render('users/profil',{title: "Profil",
+		nom: sess.name,
+		prenom: sess.firstName,
+		adresse: sess.address,
+		email: sess.email,
+		pseudo: sess.pseudo});
+		/*sess = req.session.reload(function(err){
+			if (err) throw (err);
 			res.render('users/profil',{title: "Profil",
 			nom: sess.name,
 			prenom: sess.firstName,
@@ -63,6 +93,7 @@ const Users = {
 		});*/
 	},
 
+//Crée un utilisateur
 	create: function (req, res) {
 
     /*console.log(req.body.name);
@@ -112,6 +143,7 @@ const Users = {
 		}
 	},
 
+//Affiche la page d'update
 	preupdate: function(req,res){
 		User.findById(req.params.id, function (err, user) {
 			res.render('users/UpdateUser', {title: "user", user: user});
@@ -119,7 +151,7 @@ const Users = {
 		});
 	},
 
-
+//Modifie les données de l'user en bdd
 	update: function (req, res) {
 
 		User.findById(req.params.id, function (err, user) {
@@ -165,6 +197,7 @@ const Users = {
 		});
 	},
 
+//Affiche la page de désactivation d'utilisateur
 	predelete: function(req,res) {
 
 		User.findById(req.params.id, function (err, user) {
@@ -173,6 +206,7 @@ const Users = {
 		});
 	},
 
+//Rends inactif le compte d'un utilisateur
 	delete: function (req, res) {
 
 		User.findById(req.params.id, function (err, user) {

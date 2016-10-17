@@ -22,13 +22,13 @@ const app = express();
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'keyboard cat',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
-  cookie: { secure: true },
-  store: new MongoStore({url: 'mongodb://localhost/blog',
-   ttl: 14 * 24 * 60 * 60,
+  cookie: { secure: true, maxAge: 86400000 * 7 },
+  store: new MongoStore({url: 'mongodb://localhost/Xnov',
+   //ttl: 14 * 24 * 60 * 60,
 }),
-  autoRemove: 'native'
+  //autoRemove: 'native'
 }));
 
 mongoose.Promise = global.Promise;
@@ -36,9 +36,7 @@ mongoose.connect('mongodb://localhost/Xnov', function(err) {
   if (err) { throw err; }
 });
 
-
 // view engine setup
-
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'pug');
 
