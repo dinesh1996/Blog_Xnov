@@ -19,8 +19,32 @@ const Articles = {
     index: function (req, res) {
 
         Article.find({}, function (err, articles) {
-            if (err) throw err;
-            res.render('articles/index', {title: "articles", articles: articles});
+         //  console.log(articles.category);
+
+
+
+
+            for(var i = 0; i < articles.length; i++) {
+                console.log(articles[1].category);
+
+            }
+
+
+            //for(var category in articles){
+          //      console.log(category+": category "+ articles[title]);
+            //}
+
+            //articles.forEach(function(title:) {
+          //    console.log(title);
+          /// });
+            Category.find(articles.category, function (err, categories) {
+
+
+
+                if (err) throw err;
+                res.render('articles/index', {title: "articles", articles: articles, titleC: "categories", categories: categories});
+
+            });
         });
 
 
@@ -29,37 +53,37 @@ const Articles = {
 
 
 
-         let categoryUsed =  req.body.category;
+        let categoryUsed =  req.body.category;
 
         Category.findOne({title:categoryUsed}, function (err, cat) {
             if (err) throw err;
-           console.log(cat);
+            console.log(cat);
 
-        let article = new Article({
-            title: req.body.title,
-            contents: req.body.contents,
-            category: cat,
-            createdOn: new Date(),
-            changeOn: new Date()
-
-
+            let article = new Article({
+                title: req.body.title,
+                contents: req.body.contents,
+                category: cat,
+                createdOn: new Date(),
+                changeOn: new Date()
 
 
 
 
-        });
-           // createdBy: req.session.createdBy
+
+
+            });
+            // createdBy: req.session.createdBy
 
 
 
 
-        console.log(article);
-        article.save(function (err) {
-            if (err) throw err;
+            console.log(article);
+            article.save(function (err) {
+                if (err)  err;
 
 
 
-        });
+            });
 
 
 
@@ -80,9 +104,9 @@ const Articles = {
             Category.find({}, function (err, categories) {
 
                 res.render('articles/UpdateArticle', {titleC: "categories", categories: categories,titleA: "article", article: article});
-               // console.log({titleC: "categories", categories: categories,titleA: "article", article: article});
+                // console.log({titleC: "categories", categories: categories,titleA: "article", article: article});
                 if (err) throw err;
-               //console.log(category);
+                //console.log(category);
 
             });
             if (err) throw err;
@@ -105,7 +129,7 @@ const Articles = {
                 if (err) throw err;
 
                 console.log(cat);
-              // console.log("categoryrergeregrerg " + req.body.category._id);
+                // console.log("categoryrergeregrerg " + req.body.category._id);
 
                 // change values of Article
                 article.title = req.body.title;
@@ -121,10 +145,10 @@ const Articles = {
                 article.save(function (err) {
                     if (err) throw err;
                 });
-                    console.log(article);
-                    console.log('Article successfully updated!');
+                console.log(article);
+                console.log('Article successfully updated!');
 
-                    res.redirect("/articles/");
+                res.redirect("/articles/");
 
 
             });

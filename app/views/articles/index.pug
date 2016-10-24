@@ -6,6 +6,7 @@ block content
 
     ul
         each article in articles
+
             br
             li= article.title
             li= article._id
@@ -13,7 +14,7 @@ block content
             li= article.activated
             li= article.changeOn
             li= article.createdOn
-            li= article.category
+            li= categories.title
 
 
 
