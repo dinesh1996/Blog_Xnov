@@ -22,6 +22,8 @@ router.post('/login/forgot', function(req, res, next){
   res.send('respond with a ressource');
 });
 
+router.get('/logout',users.logOut);
+
 //Put
 router.put('/update/:id',  users.update);
 

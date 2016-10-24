@@ -22,13 +22,13 @@ const app = express();
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true,
-  cookie: { secure: true, maxAge: 86400000 * 7 },
+  resave: false,
+  saveUninitialized: false,
+  cookie: {maxAge: 8600 * 7 },
   store: new MongoStore({url: 'mongodb://localhost/Xnov',
    //ttl: 14 * 24 * 60 * 60,
 }),
-  //autoRemove: 'native'
+ // autoRemove: 'native'
 }));
 
 mongoose.Promise = global.Promise;

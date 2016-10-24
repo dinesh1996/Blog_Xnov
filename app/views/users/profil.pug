@@ -1,24 +1,26 @@
 extends ../layout
 block content
-      h1= title
-      br
-      br
-      h2 Pseudo
-      br
-      p= pseudo
-      br
-      h2 Nom
-      br
-      p= nom
-      br
-      h2 Prénom
-      br
-      p= prenom
-      br
-      h2 Email
-      br
-      p= email
-      br
-      h2=Adresse
-      br
-      p= adresse
+	form(method="GET" action="/users/logout")
+		button Se déconnecter
+	h1= title
+	br
+	br
+	h2 Pseudo
+	br
+	p= pseudo
+	br
+	h2 Nom
+	br
+	p= nom
+	br
+	h2 Prénom
+	br
+	p= prenom
+	br
+	h2 Email
+	br
+	p= email
+	br
+	h2 Adresse
+	br
+	p= adresse
