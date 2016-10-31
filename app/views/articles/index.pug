@@ -7,14 +7,12 @@ block content
     ul
         each article in articles
 
-            br
-            li= article.title
-            li= article._id
-            li= article.contents
-            li= article.activated
-            li= article.changeOn
-            li= article.createdOn
-            li= categories.title
-
-
-
+            p id: #{article._id}
+                p title: #{article.title}
+                    p actived: #{article.activated}
+                        p content: #{article.contents}
+                            p created on: #{article.createdOn}
+                                p changed on : #{article.changeOn}
+                                    p in category: #{article.category}
+                                    br
+                                    br

@@ -66,6 +66,16 @@ router.get('/categories/delete/:id', categories.predelete);
 router.delete('/categories/delete/:id', categories.delete);
 
 
+router.post('/categories/reactive/:id', categories.reactive);
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
 

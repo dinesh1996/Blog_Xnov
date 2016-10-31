@@ -3,6 +3,7 @@
 
 
 const Category = require('../models/Category');
+const Article = require('../models/Article');
 
 
 const Categories = {
@@ -15,11 +16,15 @@ const Categories = {
 
     getCategory: function (req, res) {
 
-    Category.find({}, function (err, categories) {
+    Category.find({activated: true}, function (err, categories) {
+        Article.find({id: categories.articles}, function(err, article) {
+
+
         if (err) throw err;
-        res.render('articles/NewArticleCreate',{title: "categories", categories: categories});
+        res.render('articles/NewArticleCreate',{title: "categories", categories: categories,titleA: "articles", article});
     });
 
+    });
 
 },
 
@@ -28,7 +33,21 @@ const Categories = {
 
         Category.find({}, function (err, categories) {
             if (err) throw err;
-            res.render('categories/index', {title: "categories", categories: categories});
+
+
+
+
+
+           // Virus.findById(id, function (err, virus) {
+             //   console.log(virus.name);     // name is required
+           //     console.log(virus.taxonomy); // taxonomy is not
+            //});
+
+
+
+            res.render('categories/index', {title: "categories", categories:categories, titlea: "article", article: categories.articles});
+
+           // console.log(categories);
         });
 
 
@@ -148,6 +167,39 @@ const Categories = {
 
 
         });
+
+    },
+    reactive: function (req, res) {
+
+        Category.findById(req.params.id, function (err, category) {
+            if (err) throw err;
+
+            // reactive him
+            category.activated= true;
+
+
+
+
+            category.save(function (err) {
+                if (err) {
+
+                    throw err;
+
+
+                };
+
+
+                console.log('Category successfully deleted!');
+                console.log(category);
+                res.redirect('/admin/categories/');
+
+
+            });
+
+
+        });
+
+
 
     }
 };

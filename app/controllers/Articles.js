@@ -19,13 +19,17 @@ const Articles = {
     index: function (req, res) {
 
         Article.find({}, function (err, articles) {
-         //  console.log(articles.category);
+
+
+
 
 
 
 
             for(var i = 0; i < articles.length; i++) {
-                console.log(articles[1].category);
+
+                console.log(articles);
+               // console.log(articles[1].category);
 
             }
 
@@ -80,6 +84,16 @@ const Articles = {
             console.log(article);
             article.save(function (err) {
                 if (err)  err;
+               console.log(article);
+
+                cat.articles.push(article._id);
+
+
+
+                cat.save(function (err) {
+
+                if (err) throw err;
+                });
 
 
 
@@ -146,6 +160,13 @@ const Articles = {
                     if (err) throw err;
                 });
                 console.log(article);
+
+
+                cat.articles.push(article._id);
+                cat.save(function (err) {
+
+                    if (err) throw err;
+                });
                 console.log('Article successfully updated!');
 
                 res.redirect("/articles/");

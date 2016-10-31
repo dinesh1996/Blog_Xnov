@@ -4,13 +4,16 @@ block content
     h1= title
     p Welcome to #{title}
 
-    ul
         each category in categories
-            br
-            li= category.title
-            li= category.article
-            li= category.activated
-            li= category._id
+            p id: #{category._id}
+                    p title: #{category.title}
+                            p actived: #{category.activated}
+                                    p article dispo: #{category.articles}
+
+                                        br
+                                        br
+
+
 
 
 
