@@ -45,10 +45,18 @@ router.delete('/news/id', function (req,res, next) {
     res.send('respond with a ressource');
 });
 
-
-
-
-
+/*
+route.route('/users/id')
+    .get(function (req,res, next) {
+        res.send('respond with a ressource');
+    })
+    .post(function (req,res, next) {
+        res.send('respond with a ressource');
+    })
+    .put(function (req,res, next) {
+        res.send('respond with a ressource');
+    });
+*/
 
 router.get('/categories', categories.index);
 
@@ -69,7 +77,7 @@ router.delete('/categories/delete/:id', categories.delete);
 router.post('/categories/reactive/:id', categories.reactive);
 
 
-
+router.get('/categories/read/:id', categories.read);
 
 
 

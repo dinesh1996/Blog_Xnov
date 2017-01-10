@@ -4,7 +4,8 @@
 "use strict";
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-const Comment = require('./Comment');
+
+
 
 
 const schema = new Schema({
@@ -14,8 +15,8 @@ const schema = new Schema({
     createdOn: {type: Date},
     changeOn: {type: Date},
     createdBy: {type: String},
-    category: [{type: Schema.ObjectId, ref: 'Category'}], // assuming you name your model Task
-    comments: [Comment]
+    category: {type: Schema.ObjectId, ref: 'Category',required: true}, // assuming you name your model Task
+    comments: [{type: Schema.ObjectId, ref: 'Comment'}] // assuming you name your model Task
 
 });
 

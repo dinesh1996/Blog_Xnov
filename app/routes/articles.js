@@ -28,11 +28,12 @@ router.get('/delete/:id', articles.predelete);
 
 router.delete('/delete/:id', articles.delete);
 
+router.post('/reactive/:id', articles.reactive);
 
 
-router.get('/read',function(req,res){
-	res.send('Fonction retournant article');
-});
+router.get('/read/:id', articles.read);
+
+
 
 module.exports = router;
 

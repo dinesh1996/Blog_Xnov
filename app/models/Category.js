@@ -6,7 +6,7 @@ const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 
-const Article = require('mongoose').model('Article').schema;
+
 
 
 

@@ -4,14 +4,29 @@ block content
     h1= title
     p Welcome to #{title}
 
-        each category in categories
-            p id: #{category._id}
-                    p title: #{category.title}
-                            p actived: #{category.activated}
-                                    p article dispo: #{category.articles}
 
-                                        br
-                                        br
+
+    a(class='button', href='./create/'  ) Nouveu theme
+    pre=data
+
+
+
+    each categorie in data
+        p
+        | title: #{categorie.title}
+        p
+        | changed on : #{categorie.changeOn}
+
+        p
+        | Nombre d'article(s) : #{categorie.articles.length}
+
+
+        br
+        a(class='button', href='./read/' + categorie._id ) Voir les détails de la categorie
+        br
+        br
+
+
 
 
 

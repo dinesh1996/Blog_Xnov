@@ -1,11 +1,12 @@
 "use strict";
 
 
-const Category = require('../models/Category');
+const Comment = require('../models/Comment');
 const Article = require('../models/Article');
+const Category = require('../models/Category');
 
 
-const Categories = {
+const Comments = {
     /**
      * @param req La requête entrante
      * @param res Ce qui est renvoyé au navigateur
@@ -13,86 +14,38 @@ const Categories = {
 
 
 
-    getCategory: function (req, res) {
-
-        Category.find({activated: true}, function (err, categories) {
-            Article.find({id: categories.articles}, function (err, article) {
 
 
-                if (err) throw err;
-                res.render('articles/NewArticleCreate', {
-                    title: "Create Article ",
-                    categories: categories,
-                    article
-                });
-            });
-
-        });
-
-    },
 
 
     index: function (req, res) {
 
+        Comment.find({}, function (err, comments) {
+console.log(comments);
+            if (err) throw err;
 
-        Category.find({}, function (err, categories) {
-            if (categories.articles != null) {
+            const Q = [];
 
+            for (let i = 0; i < comments.length; i++) {
+                Q.push(new Promise((resolve, reject) => {
 
-                if (err) throw err;
+                    Article.findById(comments[i].article, function (err, c) {
+                        if (err) throw err;
+                        comments[i].article = c;
+                        //console.log(articles[i].category);
+                        resolve(comments[i]);
 
-                console.log(categories);
-                const Q = [];
-
-
-                for (let i = 0; i < categories.length; i++) {
-
-                    for (let y = 0; y < categories[i].articles.length; y++) {
-
-
-                        console.log(i);
-
-
-                        console.log("finalé" + categories[i].articles[y]);
-
-
-                        console.log("les categorie " + categories[i] + " ezihgozihgoiezhgoihzeiohghioezezgioh");
-                        console.log(" les articles frere" + categories[i].articles[y] + " 22222222222222");
-
-
-                        Q.push(new Promise((resolve, reject) => {
-
-                            Article.findById(categories[i].articles[y], function (err, a) {
-                                if (err) throw err;
-                                categories[i].articles[y] = a;
-                                console.log("final" + categories[i].articles[y]);
-                                resolve(categories[i].articles);
-
-
-                            });
-                        }));
-
-
-                    }
-                }
-
-
-                Promise.all(Q).then(data => {
-
-                    res.render('categories/', {
-                        title: "categories", data: data
                     });
-                });
-            } else {
-
-                res.render('categories/', {
-                    title: "categories", data: categories
-
-                });
+                }));
             }
+
+            Promise.all(Q).then(data => {
+                res.render('users/comments/allcomments', {
+                    title: "All Comments", data: data
+                });
+            });
         }).sort({_id: -1});
     },
-
 
     read: function (req, res) {
 
@@ -139,35 +92,50 @@ const Categories = {
 
     create: function (req, res) {
 
+        console.log("  Etape0");
+        Article.findById(req.params.id, function (err, article) {
+            console.log("  Etape1");
 
-        let category = new Category({
-            title: req.body.title,
+            if (err) throw err;
+            console.log(article);
 
-
-            createdOn: new Date(),
-            changeOn: new Date(),
-            activated: true
-
-
-        });
-        console.log(category);
-        category.save(function (err) {
-            if (err) {
-
-                throw err;
+            let comment = new Comment({
+                content : req.body.content,
+                article: article,
+                createdOn: new Date(),
+                changeOn: new Date()
 
 
-            }
-            ;
-            console.log('Category inserted');
+            });
+            // createdBy: req.session.createdBy
 
-            res.redirect('/admin/categories/');
+            console.log("  Etape2");
+            console.log(comment);
+            comment.save(function (err) {
+                if (err) err;
+                console.log(comment);
+
+                article.comments.push(comment);
+
+
+                article.save(function (err) {
+
+                    if (err) throw err;
+                });
+
+
+            });
+
+
+            console.log('Comment  added');
+            res.redirect('/articles/');
+
 
         });
 
 
     },
-
+/*
 
     preupdate: function (req, res) {
 
@@ -279,6 +247,7 @@ const Categories = {
 
 
     }
+    */
 };
 
-module.exports = Categories;
+module.exports = Comments;

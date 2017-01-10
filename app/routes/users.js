@@ -5,12 +5,13 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../controllers/Users'); // Nous allons récuperer notre controlleur fait précédement
+const comment = require('../controllers/Comments'); // Nous allons récuperer notre controlleur fait précédement
 /* GET users listing. */
 router.get('/',   users.index );
 
 
 
-router.get('/create', function (req,res,next) {
+router.get('/create', function (req,res) {
   res.render('users/NewUserCreate')
 
 });
@@ -36,15 +37,16 @@ router.delete('/delete/:id', users.delete);
 
 
 
+router.get('/article/:id', function (req, res) {
+    res.render('users/comments/NewCommentCreate')
+
+});
 
 
+router.post('/article/:id', comment.create);
 
 
-
-
-
-
-
+router.get('/articles/allcomments', comment.index);
 
 
 
@@ -74,6 +76,9 @@ router.post('/login', function(req, res, next){
 router.post('/login/forgot', function(req, res, next){
   res.send('respond with a ressource');
 });
+
+
+
 
 
 module.exports = router;

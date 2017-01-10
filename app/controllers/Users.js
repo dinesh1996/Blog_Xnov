@@ -33,7 +33,7 @@ const Users = {
             pseudo: req.body.pseudo,
 
             password: req.body.password,
-            createdOn: new Date(),
+            createOn: new Date(),
             status: true,
             activated: true
 
