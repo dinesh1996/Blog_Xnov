@@ -1,0 +1,60 @@
+extends ../layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+
+    p
+    | Propriétes de la catégorie
+    p
+    | id: #{cat._id}
+    p
+    | title: #{cat.title}
+    p
+    |  actived: #{cat.activated}
+    p
+    |  created on: #{cat.createdOn}
+    p
+    | changed on : #{cat.changeOn}
+    br
+    a(class='button', href='../update/' + cat._id ) Modifier la catégorie
+    br
+
+    a(class='button', href='../delete/' + cat._id ) Désactiver  la catégorie
+    br
+
+    form(method="POST" action="../reactive/" + cat._id + "?_method=POST")
+        button(type="submit") Activer  la catégorie
+
+
+    br
+    br
+
+
+
+    p
+    |   Propriétes  des articles
+    each article in cat.articles
+        br
+        br
+        p
+        | id: #{article._id}
+        p
+        | title: #{article.title}
+        p
+        |  actived: #{article.activated}
+        p
+        |  created on: #{article.createdOn}
+        p
+        | changed on : #{article.changeOn}
+        br
+
+        a(class='button', href='/articles/read/' + article._id ) Voir l'article
+
+
+
+
+
+
+
+

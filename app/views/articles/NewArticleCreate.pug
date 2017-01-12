@@ -1,15 +1,16 @@
+extends ../layout
 
-html
+block content
+    h1= title
+    p Welcome to #{title}
 
-
-
-
-form(method='POST')
-    input(type="text" name="title" placeholder="title")
-    textarea(rows='4', cols='50' placeholder="Content" name="contents")
-
-
-    button(type="submit") valider
+    form(method='POST')
+        each category in categories
+            input(type='radio', name='category', value=category.title)
+            =category.title
+        input(type="text" name="title" placeholder="title")
+        textarea(rows='4', cols='50' placeholder="Content" name="contents")
+        button(type="submit") valider
 
 
 

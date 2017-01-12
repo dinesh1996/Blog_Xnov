@@ -1,0 +1,57 @@
+extends ../layout
+
+block content
+    h1= title
+
+    pre=datatoread
+    p Welcome to #{title}
+
+
+
+    p
+        | title: #{datatoread.title}
+        br
+    p
+        | actived: #{datatoread.activated}
+        br
+    P
+        | created on: #{datatoread.createdOn}
+        br
+    p
+        | changed on : #{datatoread.changeOn}
+        br
+    p
+        | in category on : #{datatoread.category.title}
+        br
+    p
+        | content: #{datatoread.contents}
+        br
+        br
+
+
+
+
+    a(class='button', href='/articles/') Retour à la liste complet
+    br
+    a(class='button', href='../update/' + datatoread._id ) Update
+    br
+    a(class='button', href='../delete/' + datatoread._id ) Désactiver  l'article
+    br
+    a(class='button', href='user' + datatoread._id ) Désactiver  l'article
+        br
+
+    form(method="POST" action="../reactive/" + datatoread._id + "?_method=POST")
+        button(type="submit") Activer  l'article
+
+
+    br
+    br
+    br
+
+
+
+
+
+
+
+

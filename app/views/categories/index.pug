@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+
+
+
+    a(class='button', href='./create/'  ) Nouveu theme
+    pre=data
+
+
+
+    each categorie in data
+        p
+        | title: #{categorie.title}
+        p
+        | changed on : #{categorie.changeOn}
+
+        p
+        | Nombre d'article(s) : #{categorie.articles.length}
+
+
+        br
+        a(class='button', href='./read/' + categorie._id ) Voir les détails de la categorie
+        br
+        br
+
+
+
+
+
+
+

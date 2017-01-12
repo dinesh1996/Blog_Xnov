@@ -5,11 +5,37 @@ block content
     p Welcome to #{title}
 
     ul
-        each article in articles
+
+
+        a(class='button', href='./create/'  ) Nouvel article
+
+
+
+
+
+
+
+
+        each article in data
+            p
+                | id: #{article._id}
+            p
+            | title: #{article.title}
+            p
+            |  actived: #{article.activated}
+            p
+            |  created on: #{article.createdOn}
+            p
+            | changed on : #{article.changeOn}
+            p
+            |  in category on : #{article.category.title}
             br
-            li= article.title
-            li= article._id
-            li= article.contents
-            li= article.activated
+            a(class='button', href='./read/'+article._id ) Voir l'article
+            br
+            br
+
+
+
+
 
 

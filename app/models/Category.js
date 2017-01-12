@@ -4,15 +4,21 @@
 "use strict";
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-const Articles = require('./Articles');
+
+
+
 
 
 
 const schema = new Schema({
-    name: {type: String, required: true},
+    title: {type: String, required: true},
     createdOn: {type: Date},
     changeOn: {type: Date},
-    article: [Articles]
+    activated: {type: Boolean},
+    articles: [{type: Schema.ObjectId, ref: 'Article'}] // assuming you name your model Task
 });
 
 module.exports = mongoose.model('Category', schema, 'categories');
+
+
+
