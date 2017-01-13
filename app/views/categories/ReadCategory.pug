@@ -23,6 +23,8 @@ block content
     a(class='button', href='../delete/' + cat._id ) Désactiver  la catégorie
     br
 
+    a(class='button', href='../'  ) Retour a la liste des catégories
+
     form(method="POST" action="../reactive/" + cat._id + "?_method=POST")
         button(type="submit") Activer  la catégorie
 
@@ -32,8 +34,14 @@ block content
 
 
 
+
     p
     |   Propriétes  des articles
+    br
+
+    a(class='button', href='../../../articles/create/'  ) Nouvel article
+    br
+
     each article in cat.articles
         br
         br

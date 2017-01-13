@@ -1,6 +1,12 @@
-html
+extends ../layout
 
-p vous allez  perdre l article complet
+block content
+    h1= title
+    p Welcome to #{title}
+
+
+
+    p vous allez  perdre l article complet
 
     form(method="POST" action="/articles/delete/" + article._id + "?_method=DELETE")
         button(type="submit") valider
