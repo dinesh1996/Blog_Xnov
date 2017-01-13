@@ -3,16 +3,177 @@ html( lang="fr" )
     head
         title= title
         meta( charset='utf-8' )
-        meta( http-equiv='X-UA-Compatible', content='IE=edge' )
-        meta( name='viewport', content='width=device-width, initial-scale=1.0' )
-        meta( name='description', content='Blog _Xnov un blog pour connaitre les dernières news du campus' )
-        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-        link(rel='stylesheet', href='/stylesheets/style.css')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge' )
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(name='description', content='Blog _Xnov un blog pour connaitre les dernières news du campus' )
+        link(href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500', rel='stylesheet', type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
+        // Animate.css
+        link(rel='stylesheet', href='/css/animate.css')
+
+        // Icomoon Icon Fonts
+        link(rel='stylesheet', href='/css/icomoon.css')
+        // Owl Carousel
+        link(rel='stylesheet', href='/css/owl.carousel.min.css')
+        link(rel='stylesheet', href='/css/owl.theme.default.min.css')
+        // Magnific Popup
+        link(rel='stylesheet', href='/css/magnific-popup.css')
+        // Theme Style
+        link(rel='stylesheet', href='/css/style.css')
+        // Modernizr JS
+        script(src='/js/modernizr-2.6.2.min.js')
+        // FOR IE9 below
+        //if lt IE 9
+          script(src='js/respond.min.js')
 
     body
+
+        header#fh5co-header(role='banner')
+            nav.navbar.navbar-default(role='navigation')
+                .container-fluid
+                    .navbar-header
+                        // Mobile Toggle Menu Button
+                        a.js-fh5co-nav-toggle.fh5co-nav-toggle(href='#', data-toggle='collapse', data-target='#fh5co-navbar', aria-expanded='false', aria-controls='navbar')
+                            i
+                        a.navbar-brand(href='/articles/') Blog Xnov
+                    #fh5co-navbar.navbar-collapse.collapse
+                        ul.nav.navbar-nav.navbar-right
+                            li.active
+                                a(href='/articles/')
+                                    span
+                                        | Connexion
+                                        span.border
+                            li
+                                a(href='right-sidebar.html')
+                                    span
+                                        | Inscription
+                                        span.border
+                            li
+                                a(href='/articles/')
+                                    span
+                                        | Articles
+                                        span.border
+                            li
+                                a(href='/admin/categories/')
+                                    span
+                                        | Thématiques
+                                        span.border
+
+                            li
+                                a(href='elements.html')
+                                    span
+                                        | A propos
+                                        span.border
+
+
+
         .container
 
             block content
 
-        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
-        script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+
+            footer#fh5co-footer
+                .container
+                    .row
+                        .col-md-6.col-sm-6
+                            .fh5co-footer-widget
+                                h2.fh5co-footer-logo Booster
+                                p
+                                    | Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.
+                            .fh5co-footer-widget
+                                ul.fh5co-social
+                                    li
+                                        a(href='#')
+                                            i.icon-facebook
+                                    li
+                                        a(href='#')
+                                            i.icon-twitter
+                                    li
+                                        a(href='#')
+                                            i.icon-instagram
+                                    li
+                                        a(href='#')
+                                            i.icon-linkedin
+                                    li
+                                        a(href='#')
+                                            i.icon-youtube
+                        .col-md-2.col-sm-6
+                            .fh5co-footer-widget.top-level
+                                h4.fh5co-footer-lead Company
+                                ul
+                                    li
+                                        a(href='#') About
+                                    li
+                                        a(href='#') Contact
+                                    li
+                                        a(href='#') News
+                                    li
+                                        a(href='#') Support
+                                    li
+                                        a(href='#') Career
+                        .visible-sm-block.clearfix
+                        .col-md-2.col-sm-6
+                            .fh5co-footer-widget.top-level
+                                h4.fh5co-footer-lead Features
+                                ul.fh5co-list-check
+                                    li
+                                        a(href='#') Lorem ipsum dolor.
+                                    li
+                                        a(href='#') Ipsum mollitia dolore.
+                                    li
+                                        a(href='#') Eius similique in.
+                                    li
+                                        a(href='#') Aspernatur similique nesciunt.
+                                    li
+                                        a(href='#') Laboriosam ad commodi.
+                        .col-md-2.col-sm-6
+                            .fh5co-footer-widget.top-level
+                                h4.fh5co-footer-lead Products
+                                ul.fh5co-list-check
+                                    li
+                                        a(href='#') Lorem ipsum dolor.
+                                    li
+                                        a(href='#') Ipsum mollitia dolore.
+                                    li
+                                        a(href='#') Eius similique in.
+                                    li
+                                        a(href='#') Aspernatur similique nesciunt.
+                                    li
+                                        a(href='#') Laboriosam ad commodi.
+                    .row.fh5co-row-padded.fh5co-copyright
+                        .col-md-5
+                            p
+                                small
+                                    | © Booster Free HTML5 Template. All Rights Reserved.
+                                    br
+                                    | Designed by:
+                                    a(href='http://freehtml5.co/', target='_blank') FREEHTML5.co
+                                    |  | Images by:
+                                    a(href='http://deathtothestockphoto.com/', target='_blank') DeathToTheStockPhoto
+
+
+
+
+
+        // jQuery
+        script(src='/js/jquery.min.js')
+        // jQuery Easing
+        script(src='/js/jquery.easing.1.3.js')
+        // Bootstrap
+        script(src='/js/bootstrap.min.js')
+        // Owl carousel
+        script(src='/js/owl.carousel.min.js')
+        // Waypoints
+        script(src='/js/jquery.waypoints.min.js')
+        // Magnific Popup
+        script(src='/js/jquery.magnific-popup.min.js')
+        // Main JS
+        script(src='/js/main.js')
+
+
+
+
+
+
+
+

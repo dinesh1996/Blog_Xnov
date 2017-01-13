@@ -1,36 +1,54 @@
 extends ../layout
 
 block content
+
+
+    .col-md-12
     h1= title
-    p Welcome to #{title}
-
-    ul
-
-
-        a(class='button', href='./create/'  ) Nouvel article
+    a.btn.btn-primary(href='./create/'  ) Nouvel article
 
 
 
 
+    each article,i in data
 
 
 
+        .row
 
-        each article in data
-            p
-                | id: #{article._id}
-            p
-            | title: #{article.title}
-            p
-            |  actived: #{article.createdBy}
-            p
-            |  created on: #{article.createdOn}
-            p
-            | changed on : #{article.changeOn}
-            p
-            |  in category on : #{article.category.title}
+            .col-md-12
 
+                h2 Numero d'article #{1+i}
+            .col-md-4
+                p
+                    | Id: #{article._id}
+
+            .col-md-4
+                p
+                    | Titre : #{article.title}
+
+
+            .col-md-4
+                p
+                    |  Activation : #{article.activated}
+
+
+
+            .col-md-6
+                p
+                    |  Date de création: #{article.createdOn}
+
+
+
+            .col-md-6
+                p
+                    | Date de mis à jour : #{article.changeOn}
+
+
+
+            .col-md-6
+                p
+                    |  Dans la catégorie: #{article.category.title}
+            .col-md-8
             br
-            a(class='button', href='./read/'+article._id ) Voir l'article
-            br
-            br
+            a.btn.btn-primary(href='./read/'+article._id ) Voir l'article
