@@ -4,7 +4,6 @@
 const Category = require('../models/Category');
 const Article = require('../models/Article');
 let sess;
-
 const Categories = {
     /**
      * @param req La requête entrante
@@ -14,7 +13,10 @@ const Categories = {
 
 
     getCategory: function (req, res) {
-      if(sess != null){
+      sess = req.session.regenerate(function(err){if(err)throw err;});
+      if(sess.name == null || sess.name == "undefined"){
+        res.redirect('/login');
+      }
         Category.find({activated: true}, function (err, categories) {
             Article.find({id: categories.articles}, function (err, article) {
 
@@ -28,10 +30,6 @@ const Categories = {
             });
 
         });
-
-      }else{
-        res.redirect('/login');
-      }
 
     },
 
@@ -142,8 +140,6 @@ const Categories = {
 
 
     create: function (req, res) {
-
-
         let category = new Category({
             title: req.body.title,
 
@@ -157,10 +153,7 @@ const Categories = {
         console.log(category);
         category.save(function (err) {
             if (err) {
-
                 throw err;
-
-
             }
             ;
             console.log('Category inserted');
@@ -174,8 +167,10 @@ const Categories = {
 
 
     preupdate: function (req, res) {
-
-
+        sess = req.session.regenerate(function(err){if(err)throw err;});
+        if(sess.name == null || sess.name == "undefined" && sess.status != 1){
+          res.redirect('/login');
+        }
         Category.findById(req.params.id, function (err, category) {
             res.render('categories/UpdateCategory', {title: "category", category: category});
             if (err) throw err;
@@ -196,13 +191,11 @@ const Categories = {
             category.changeOn = new Date();
 
 
-//req.body.map(v => req.session.flash('', v));
+            //req.body.map(v => req.session.flash('', v));
             // save the category
             category.save(function (err) {
                 if (err) throw err;
-
                 console.log('Categories successfully updated!');
-
                 res.redirect("/admin/categories/");
             });
 
@@ -214,7 +207,10 @@ const Categories = {
 
     predelete: function (req, res) {
 
-
+      sess = req.session.regenerate(function(err){if(err)throw err;});
+      if(sess.name == null || sess.name == "undefined" && sess.status != 1){
+        res.redirect('/login');
+      }
         Category.findById(req.params.id, function (err, category) {
             res.render('categories/DeleteCategory', {title: "category", category: category});
             if (err) throw err;
@@ -233,34 +229,21 @@ const Categories = {
 
             category.save(function (err) {
                 if (err) {
-
                     throw err;
-
-
                 }
                 ;
-
-
                 console.log('Category successfully deleted!');
                 console.log(category);
                 res.redirect('/admin/categories/');
-
-
             });
-
-
         });
 
     },
     reactive: function (req, res) {
-      if(sess != null){
         Category.findById(req.params.id, function (err, category) {
             if (err) throw err;
-
             // reactive him
             category.activated = true;
-
-
             category.save(function (err) {
                 if (err) {
                     throw err;
@@ -270,12 +253,7 @@ const Categories = {
                 res.redirect('/admin/categories/');
             });
 
-
         });
-
-      }else{
-        res.redirect('/login');
-      }
 
 
     }

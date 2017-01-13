@@ -3,7 +3,7 @@
 const Comment = require('../models/Comment');
 const Article = require('../models/Article');
 const Category = require('../models/Category');
-
+let sess;
 
 const Comments = {
     /**
@@ -12,6 +12,10 @@ const Comments = {
      */
 
     index: function (req, res) {
+      sess = req.session.regenerate(function(err){if(err)throw err;});
+      if(sess.name == null || sess.name == "undefined"){
+        res.redirect('/login');
+      }
       if(sess != null){
         Comment.find({}, function (err, comments) {
             console.log(comments);
@@ -80,6 +84,10 @@ const Comments = {
     },
 
     create: function (req, res) {
+      sess = req.session.regenerate(function(err){if(err)throw err;});
+      if(sess.name == null || sess.name == "undefined" && sess.status != 1){
+        res.redirect('/login');
+      }
       if(sess != null){
         console.log("  Etape0");
         Article.findById(req.params.id, function (err, article) {

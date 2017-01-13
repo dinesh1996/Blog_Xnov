@@ -4,6 +4,7 @@ const User = require('../models/User');
 const crypto = require('crypto');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+
 let sess;
 
 const Users = {
@@ -44,7 +45,10 @@ const Users = {
 
 
     preupdate: function(req,res){
-    	User.findById(req.params.id, function (err, user) {
+      if(sess.name == null || sess.name == "undefined"){
+        res.redirect('/login');
+      }
+      User.findById(req.params.id, function (err, user) {
 	    res.render('users/UpdateUser', {title: "user", user: user});
   	  if (err) throw err;
 	});
@@ -66,10 +70,16 @@ const Users = {
             user.address =  req.body.adress;
             user.changeOn =  new Date();
 
-//req.body.map(v => req.session.flash('', v));
+            //req.body.map(v => req.session.flash('', v));
             // save the user
             user.save(function (err) {
                 if (err) throw err;
+                sess.name = user.name;
+      					sess.firstName = user.firstName;
+      					sess.email = user.email;
+      					sess.pseudo = user.pseudo;
+      					sess.address = user.address;
+      					sess.userID = user.id;
 
                 console.log('User successfully updated!');
 
@@ -83,14 +93,14 @@ const Users = {
 
 
     predelete: function(req,res) {
-
-
+      if(sess.name == null || sess.name == "undefined"){
+        res.redirect('/login');
+      }
         User.findById(req.params.id, function (err, user) {
             res.render('users/DeleteUser', {title: "user", user: user});
             if (err) throw err;
         });
     },
-
 
 
     delete: function (req, res) {
@@ -132,7 +142,7 @@ const Users = {
 					sess.pseudo = user.pseudo;
 					sess.address = user.address;
 					sess.userID = user.id;
-					req.session.save(function(err){
+					sess.save(function(err){
 			 		 	if (err) throw (err);
 						res.redirect('/users/profil');
 						console.log(req.session);

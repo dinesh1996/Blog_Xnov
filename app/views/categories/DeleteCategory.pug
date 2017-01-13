@@ -1,7 +1,14 @@
-html
+extends ../layout
 
-p vous allez  perdre la categorie  complète
+block content
+    h1= title
 
-    form(method="POST" action="/admin/categories/delete/" + category._id + "?_method=DELETE")
-        button(type="submit") valider
+    pre=datatoread
+    p Welcome to Sup cat
+
+
+    p vous allez  perdre la categorie  complète
+
+        form(method="POST" action="/admin/categories/delete/" + category._id + "?_method=DELETE")
+            button(type="submit") valider
 

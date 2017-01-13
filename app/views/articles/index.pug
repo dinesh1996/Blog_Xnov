@@ -22,20 +22,15 @@ block content
             p
             | title: #{article.title}
             p
-            |  actived: #{article.activated}
+            |  actived: #{article.createdBy}
             p
             |  created on: #{article.createdOn}
             p
             | changed on : #{article.changeOn}
             p
             |  in category on : #{article.category.title}
+
             br
             a(class='button', href='./read/'+article._id ) Voir l'article
             br
             br
-
-
-
-
-
-

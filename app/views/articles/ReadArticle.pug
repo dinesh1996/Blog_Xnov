@@ -3,7 +3,7 @@ extends ../layout
 block content
     h1= title
 
-    pre=datatoread
+
     p Welcome to #{title}
 
 
@@ -16,6 +16,9 @@ block content
         br
     P
         | created on: #{datatoread.createdOn}
+        br
+    P
+        | created by: #{datatoread.createdBy}
         br
     p
         | changed on : #{datatoread.changeOn}
@@ -37,8 +40,9 @@ block content
     br
     a(class='button', href='../delete/' + datatoread._id ) Désactiver  l'article
     br
-    a(class='button', href='user' + datatoread._id ) Désactiver  l'article
-        br
+
+    br
+    br
 
     form(method="POST" action="../reactive/" + datatoread._id + "?_method=POST")
         button(type="submit") Activer  l'article
@@ -47,11 +51,3 @@ block content
     br
     br
     br
-
-
-
-
-
-
-
-
