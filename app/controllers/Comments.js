@@ -1,6 +1,5 @@
 "use strict";
 
-
 const Comment = require('../models/Comment');
 const Article = require('../models/Article');
 const Category = require('../models/Category');
@@ -12,16 +11,10 @@ const Comments = {
      * @param res Ce qui est renvoyé au navigateur
      */
 
-
-
-
-
-
-
     index: function (req, res) {
-
+      if(sess != null){
         Comment.find({}, function (err, comments) {
-console.log(comments);
+            console.log(comments);
             if (err) throw err;
 
             const Q = [];
@@ -34,7 +27,6 @@ console.log(comments);
                         comments[i].article = c;
                         //console.log(articles[i].category);
                         resolve(comments[i]);
-
                     });
                 }));
             }
@@ -45,53 +37,50 @@ console.log(comments);
                 });
             });
         }).sort({_id: -1});
+      }else{
+        res.redirect('/login/');
+      }
+
     },
 
     read: function (req, res) {
-
+      if(sess != null){
         Category.findById(req.params.id, function (err, cat) {
-
-
             if (err) throw err;
 
             console.log(cat);
             const Q = [];
-
-
             for (let i = 0; i < cat.articles.length; i++) {
-
-
                 Q.push(new Promise((resolve, reject) => {
-
                     Article.findById(cat.articles[i], function (err, a) {
-
                         if (err) throw err;
-
                         cat.articles[i] = a;
-
                         resolve(cat.articles[i]);
-
-
                     });
                 }));
-
-
             }
-
-
             Promise.all(Q).then(datae => {
-
                 res.render('categories/ReadCategory', {
                     title: "Reading Category", cat: cat
                 });
             });
-
         }).sort({_id: -1});
+      }else{
+        res.redirect('/login');
+      }
     },
 
+    getNewCommentCreate:function(req,res){
+      if(sess != null){
+          res.render('users/comments/NewCommentCreate');
+      }else {
+          res.redirect('/login');
+      }
+
+    },
 
     create: function (req, res) {
-
+      if(sess != null){
         console.log("  Etape0");
         Article.findById(req.params.id, function (err, article) {
             console.log("  Etape1");
@@ -104,36 +93,26 @@ console.log(comments);
                 article: article,
                 createdOn: new Date(),
                 changeOn: new Date()
-
-
             });
             // createdBy: req.session.createdBy
 
-            console.log("  Etape2");
+            console.log("Etape2");
             console.log(comment);
             comment.save(function (err) {
                 if (err) err;
                 console.log(comment);
-
                 article.comments.push(comment);
-
-
                 article.save(function (err) {
-
                     if (err) throw err;
                 });
-
-
             });
-
-
             console.log('Comment  added');
             res.redirect('/articles/');
-
-
         });
 
-
+      }else{
+        res.redirect('/login/');
+      }
     },
 /*
 

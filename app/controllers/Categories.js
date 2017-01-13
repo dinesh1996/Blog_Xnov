@@ -3,7 +3,7 @@
 
 const Category = require('../models/Category');
 const Article = require('../models/Article');
-
+let sess;
 
 const Categories = {
     /**
@@ -14,7 +14,7 @@ const Categories = {
 
 
     getCategory: function (req, res) {
-
+      if(sess != null){
         Category.find({activated: true}, function (err, categories) {
             Article.find({id: categories.articles}, function (err, article) {
 
@@ -28,6 +28,10 @@ const Categories = {
             });
 
         });
+
+      }else{
+        res.redirect('/login');
+      }
 
     },
 
@@ -249,7 +253,7 @@ const Categories = {
 
     },
     reactive: function (req, res) {
-
+      if(sess != null){
         Category.findById(req.params.id, function (err, category) {
             if (err) throw err;
 
@@ -259,23 +263,19 @@ const Categories = {
 
             category.save(function (err) {
                 if (err) {
-
                     throw err;
-
-
                 }
-                ;
-
-
                 console.log('Category successfully activation!');
                 console.log(category);
                 res.redirect('/admin/categories/');
-
-
             });
 
 
         });
+
+      }else{
+        res.redirect('/login');
+      }
 
 
     }

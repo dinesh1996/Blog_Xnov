@@ -12,10 +12,12 @@ const Users = {
      * @param res Ce qui est renvoyé au navigateur
      */
     index: function (req, res) {
+        console.warn('Bienvenue');
         User.find({}, function (err, users) {
             if (err) throw err;
             res.render('users/index', {title: "users", users: users});
         });
+
     },
     create: function (req, res) {
         let user = new User({
@@ -23,13 +25,13 @@ const Users = {
             firstName: req.body.firstName,
             email: req.body.email,
             pseudo: req.body.pseudo,
-
             password: req.body.password,
             createOn: new Date(),
             status: true,
             activated: true
 
         });
+
         console.log(user);
         user.save(function (err) {
             if (err) {
@@ -61,7 +63,7 @@ const Users = {
             user.email =  req.body.email;
             user.pseudo =req.body.pseudo;
             user.category = req.body.category._id;
-            user.addres=  req.body.adress;
+            user.address =  req.body.adress;
             user.changeOn =  new Date();
 
 //req.body.map(v => req.session.flash('', v));
@@ -105,20 +107,12 @@ const Users = {
                 }
                 console.log('User successfully deleted!');
                 console.log(user);
-                 res.redirect('/users/');
+                res.redirect('/users/');
         });
 
 
     });
-
-	//Fonction réservée pour l'admin
-	index: function (req, res) {
-
-		User.find({}, function (err, users) {
-			if (err) throw err;
-			res.render('users/index', {title: "users", users: users});
-		});
-	},
+  },
 	//Access Login
 	getLogin: function(req,res){
 		res.render('users/connect');
@@ -155,9 +149,11 @@ const Users = {
 			res.redirect('/login');
 		}
 	},
+
 		//Déconnexion
 	logOut: function(req,res){
-			req.session.destroy(function(err){
+      sess = null;
+      req.session.destroy(function(err){
 				if (err) throw err;
 				res.redirect('/login');
 			});
@@ -178,13 +174,21 @@ const Users = {
 		  });*/
 	//	sess = req.session.reload(function(err){
 	//	  if (err) throw (err);
-		  res.render('users/profil',{title: "Profil",
-		  nom: sess.name,
-		  prenom: sess.firstName,
-		  adresse: sess.address,
-		  email: sess.email,
-		  pseudo: sess.pseudo});
-		  console.log(sess.name);
+
+      if(sess != null)
+      {
+          res.render('users/profil',{title: "Profil",
+    		  nom: sess.name,
+    		  prenom: sess.firstName,
+    		  adresse: sess.address,
+    		  email: sess.email,
+    		  pseudo: sess.pseudo});
+    		  console.log(sess.name);
+
+      }else {
+        res.redirect('/login');
+        console.log("Il n'y a rien.");
+    }
 	//	  });
 	},
 
@@ -208,42 +212,51 @@ const Users = {
 				if(user){
 					res.redirect('/login');
 				}
+        if(req.body.mps == req.body.confMps){
 
-			});
+  				var user = new User({
+  					name: req.body.name,
+  					firstName: req.body.firstName,
+  					email: req.body.email,
+  					pseudo: req.body.pseudo,
+  					address: req.body.adress,
+  					mdp: crypto.createHash('sha1').update(req.body.mps).digest('hex'),
+  					createdOn: new Date(),
+  					status: true,
+  					activated: true
+  				});
 
-			if(req.body.mps == req.body.confMps){
-
-				var user = new User({
-					name: req.body.name,
-					firstName: req.body.firstName,
-					email: req.body.email,
-					pseudo: req.body.pseudo,
-					address: req.body.adress,
-					mdp: crypto.createHash('sha1').update(req.body.mps).digest('hex'),
-					createdOn: new Date(),
-					status: true,
-					activated: true
-				});
-
-				console.log(user);
-				user.save(function (err) {
-					if (err) throw err;
-					console.log('User inserted');
-					res.redirect('/login');
-				});
+  				console.log(user);
+  				user.save(function (err) {
+  					if (err) throw err;
+  					console.log('User inserted');
+  					res.redirect('/login');
+  				});
 			}
+
+
+    });
 		} else{
 			console.log('Champs manquant ou les mdp insérés ne sont pas les mêmes.');
 			res.redirect('/users/create');
 		}
 	},
 
+  getSignUp:function(req,res){
+    res.render('users/NewUserCreate');
+  },
 		//Affiche la page d'update
 	preupdate: function(req,res){
-		User.findById(req.params.id, function (err, user) {
-			res.render('users/UpdateUser', {title: "user", user: user});
-			if (err) throw err;
-		});
+
+    if(sess != null){
+      User.findById(req.params.id, function (err, user) {
+        res.render('users/UpdateUser', {title: "user", user: user});
+        if (err) throw err;
+      });
+    }else{
+      res.redirect('/login');
+    }
+
 	},
 
 		//Modifie les données de l'user en bdd
