@@ -1,16 +1,32 @@
 extends ../layout
 
 block content
-    h1= title
-    p Welcome to #{title}
+    h1.createh1= title
+    .row
 
-    form(method='POST')
-        each category in categories
-            input(type='radio', name='category', value=category.title)
-            =category.title
-        input(type="text" name="title" placeholder="title")
-        textarea(rows='4', cols='50' placeholder="Content" name="contents")
-        button(type="submit") valider
+        form(method='POST')
+            .col-md-12
+                .form-group
+                    br
+                    label.sr-only Thématique
+                    select.form-control.input-lg(name='category')
+                        each category in categories
+                            option #{category.title}
 
-    a(class='button', href='../') Retour à la liste complet
+            .col-md-12
+                .form-group
+                    label.sr-only(for='name') Titre
+                    input#name.form-control.input-lg(placeholder='Titre', type='text', name='title')
+
+            .col-md-12
+                .form-group
+                    label.sr-only(for='message') Contenu
+                    textarea#message.form-control.input-lg(placeholder='Message', rows='3', name="contents")
+
+
+
+            .col-md-12
+                .form-group
+                    button.btn.btn-primary(type="submit") valider
+                    a.btn.btn-primary(href='../') Retour à la liste complet
 
