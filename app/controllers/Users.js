@@ -48,10 +48,7 @@ const Users = {
       if(sess.name == null || sess.name == "undefined"){
         res.redirect('/login');
       }
-      User.findById(req.params.id, function (err, user) {
-	    res.render('users/UpdateUser', {title: "user", user: user});
-  	  if (err) throw err;
-	});
+	    res.render('users/UpdateUser', {title: "user", user: sess});
     },
 
 
@@ -170,21 +167,6 @@ const Users = {
 	},
 		//Affiche le profil
 	getProfil : function(req,res){
-		/*req.session.regenerate(function(err){
-		  if (err) throw (err);
-		  console.log("session regenerated");
-
-		  req.session.reload(function(err){
-
-		  console.log(req.session.name);
-		  if (err) throw (err);
-		  console.log("Session loaded");
-		  });
-
-		  });*/
-	//	sess = req.session.reload(function(err){
-	//	  if (err) throw (err);
-
       if(sess != null)
       {
           res.render('users/profil',{title: "Profil",
@@ -252,54 +234,52 @@ const Users = {
 		}
 	},
 
-  getSignUp:function(req,res){
-    res.render('users/NewUserCreate');
-  },
-		//Affiche la page d'update
+ 	 getSignUp:function(req,res){
+   		 res.render('users/NewUserCreate');
+  	},
+	//Affiche la page d'update
 	preupdate: function(req,res){
-
-    if(sess != null){
-      User.findById(req.params.id, function (err, user) {
-        res.render('users/UpdateUser', {title: "user", user: user});
-        if (err) throw err;
-      });
-    }else{
-      res.redirect('/login');
-    }
+		sess = req.session.regenerate(function(err){if(err)throw(err);});
+    		if(sess != null){
+        		res.render('users/UpdateUser', {title: "user", user: sess});
+    		} else{
+      		res.redirect('/login');
+    		}	
 
 	},
 
 		//Modifie les données de l'user en bdd
 	update: function (req, res) {
-
-		User.findById(req.params.id, function (err, user) {
+    		if(sess == null){
+			res.redirect("/users/login");
+		}else{
+		User.findById(sess.userID, function (err, user) {
 
 			if (err) throw err;
 			console.log(user);
 
 			if(req.body.name){
 				user.name = req.body.name;
+				sess.name = user.name;
 			}
 
 			if(req.body.firstName){
 				user.firstName =  req.body.firstName;
+				sess.firstName = user.firstName
 			}
 
 			if(req.body.email){
 				user.email =  req.body.email;
+				sess.email = user.email
 			}
-
-			if(req.body.pseudo){
-				user.pseudo =req.body.pseudo;
-			}
-
 			if(req.body.adress){
-				user.adress =  req.body.adress;
+				user.address =  req.body.adress;
+				sess.address = user.address;
 			}
 
 			if(req.body.mps && req.body.confMps){
 				if(req.body.mps == req.body.confMps){
-					user.mps = crypto.createHash('sha1').update(req.body.mps).digest('hex');
+					user.mdp = crypto.createHash('sha1').update(req.body.mps).digest('hex');
 				}
 			}
 
@@ -309,10 +289,12 @@ const Users = {
 			user.save(function (err) {
 				if (err) throw err;
 				console.log('User successfully updated!');
-				res.redirect("/users/");
+				res.redirect("/users/profil");
+
 			});
 
 		});
+		}
 	},
 
 		//Affiche la page de désactivation d'utilisateur
@@ -331,7 +313,7 @@ const Users = {
 			if (err) throw err;
 
 			// delete him
-			user.activated= false;
+			user.activated = false;
 			user.save(function (err) {
 				if (err) {
 					throw err;

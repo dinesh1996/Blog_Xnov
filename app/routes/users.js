@@ -6,13 +6,12 @@ const comment = require('../controllers/Comments'); // Nous allons récuperer no
 
 //Routes en methode get
 router.get('/',users.index );
+router.get('/login',users.getLogin);
 
 //Accès page Création utilisateur
 router.get('/create',users.getSignUp);
-
 //Accès page Modification données utilisateur
-router.get('/update/:id', users.preupdate);
-
+router.get('/update/', users.preupdate);
 //Accès page confirmation "suppression" utilisateur connecté
 router.get('/delete/:id', users.predelete);
 //Accès page post de commentaires
@@ -24,13 +23,14 @@ router.get('/profil',users.getProfil);
 //Logout l'utilisateur
 router.get('/logout',users.logOut);
 
+
 //Routes en methode delete
 
 //Rend inactif le compte de l'utilisateur
 router.delete('/delete/:id',users.delete);
 
 //Routes en methode PUT
-router.put('/update/:id',users.update);
+router.put('/update/',users.update);
 
 ////Routes en methode Post
 router.post('/login', users.logIn);

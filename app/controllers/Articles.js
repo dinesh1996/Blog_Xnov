@@ -135,8 +135,8 @@ const Articles = {
                       break;
               }
               ;
-          });
-        }
+          }
+        });
       }
     },
 
