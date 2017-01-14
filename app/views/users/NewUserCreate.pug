@@ -1,26 +1,28 @@
 extends ../layout
 block content
 
-  form(method='POST' action="/users/signup")
-      input(type="text" name="name" placeholder="Entrez votre nom")
-      br
-      br
-      input(type="text" name="firstName" placeholder="Entrez votre prénom")
-      br
-      br
-      input(type="text" name="pseudo" placeholder="Entrez votre pseudo")
-      br
-      br
-      input(type="text" name="adress" placeholder="Entrez votre adresse")
-      br
-      br
-      input(type="password" name="mps" placeholder="Entrez votre mot de passe")
-      br
-      br
-      input(type="password" name="confMps" placeholder="Réécrivez votre mot de passe")
-      br
-      br
-      input(type="email" name="email" placeholder="Entrez votre email")
-      br
-      br
-      button valider
+
+    h1 Inscription
+    form(method='POST' action="/users/signup")
+          input(type="text" name="name" placeholder="Entrez votre nom")
+          br
+          br
+          input(type="text" name="firstName" placeholder="Entrez votre prénom")
+          br
+          br
+          input(type="text" name="pseudo" placeholder="Entrez votre pseudo")
+          br
+          br
+          input(type="text" name="adress" placeholder="Entrez votre adresse")
+          br
+          br
+          input(type="password" name="mps" placeholder="Entrez votre mot de passe")
+          br
+          br
+          input(type="password" name="confMps" placeholder="Réécrivez votre mot de passe")
+          br
+          br
+          input(type="email" name="email" placeholder="Entrez votre email")
+          br
+          br
+          button valider

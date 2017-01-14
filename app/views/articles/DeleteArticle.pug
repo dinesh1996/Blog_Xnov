@@ -9,5 +9,10 @@ block content
     p vous allez  perdre l article complet
 
     form(method="POST" action="/articles/delete/" + article._id + "?_method=DELETE")
-        button(type="submit") valider
+
+
+        .col-md-12
+            .form-group
+                a.btn.btn-primary(type="submit") valider
+
 

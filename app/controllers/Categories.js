@@ -15,7 +15,7 @@ const Categories = {
     getCategory: function (req, res) {
       sess = req.session.regenerate(function(err){if(err)throw err;});
       if(sess.name == null || sess.name == "undefined"){
-        res.redirect('/login');
+        res.redirect('/users/login');
       }
         Category.find({activated: true}, function (err, categories) {
             Article.find({id: categories.articles}, function (err, article) {

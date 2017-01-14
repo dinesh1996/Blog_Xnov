@@ -2,52 +2,75 @@ extends ../layout
 
 block content
     h1= title
-
-
-    p Welcome to #{title}
-
-
-
-    p
-        | title: #{datatoread.title}
-        br
-    p
-        | actived: #{datatoread.activated}
-        br
-    P
-        | created on: #{datatoread.createdOn}
-        br
-    P
-        | created by: #{datatoread.createdBy}
-        br
-    p
-        | changed on : #{datatoread.changeOn}
-        br
-    p
-        | in category on : #{datatoread.category.title}
-        br
-    p
-        | content: #{datatoread.contents}
-        br
-        br
-
-
-
-
-    a(class='button', href='/articles/') Retour à la liste complet
-    br
-    a(class='button', href='../update/' + datatoread._id ) Update
-    br
-    a(class='button', href='../delete/' + datatoread._id ) Désactiver  l'article
     br
 
-    br
-    br
-
-    form(method="POST" action="../reactive/" + datatoread._id + "?_method=POST")
-        button(type="submit") Activer  l'article
 
 
-    br
-    br
-    br
+
+
+    .row
+
+
+        .col-md-4
+            p
+                | title: #{datatoread.title}
+
+
+
+        .col-md-4
+            p
+                | actived: #{datatoread.activated}
+
+
+        .col-md-4
+            P
+                | in category on : #{datatoread.category.title}
+
+
+
+        .col-md-4
+            P
+                | created by: #{datatoread.createdBy}
+
+
+
+        .col-md-4
+            p
+                | changed on : #{datatoread.changeOn}
+
+
+        .col-md-4
+            p
+                | created on: #{datatoread.createdOn}
+
+
+        .col-md-12
+            p
+                | content: #{datatoread.contents}
+                br
+
+
+
+
+        .col-md-3
+
+            a.btn.btn-primary(href='../update/' + datatoread._id ) Update
+
+        .col-md-3
+            a.btn.btn-primary(href='../delete/' + datatoread._id ) Désactiver  l'article
+
+
+        .col-md-3
+            form.formr(method="POST" action="../reactive/" + datatoread._id + "?_method=POST")
+                button.btn.btn-primary(type="submit") Activer  l'article
+
+
+
+        .col-md-3
+            a.btn.btn-primary(href='/articles/') Retour à la liste complet
+
+
+
+
+
+

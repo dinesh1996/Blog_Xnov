@@ -1,11 +1,28 @@
 extends ../layout
 block content
-  button(href="/users/create") S'inscrire
-  form(method="POST" action="/users/login")
-    input(type="text" name="pseudo")
-    br
-    br
-    input(type="password" name="mdp")
-    br
-    br
-    button Se connecter
+
+
+    h1 Connexion
+
+
+
+    .row
+
+        form(method="POST" action="/users/login")
+
+            .col-md-12
+                .form-group
+                    label.sr-only(for='name') Pseudo
+                    input#name.form-control.input-lg(type='text', name='pseudo')
+
+            .col-md-12
+                .form-group
+                    label.sr-only(for='password') Mot de passe
+                    input#password.form-control.input-lg( type='password', name="mdp")
+
+
+
+            .col-md-12
+                .form-group
+                    button.btn.btn-primary(type="submit") Se connecter
+

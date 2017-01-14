@@ -3044,6 +3044,12 @@ input[type="search"] {
     margin-bottom: 30px;
 }
 
+.formr{
+
+
+display: inline-block;
+}
+
 .radio, .checkbox {
     position: relative;
     display: block;
