@@ -1,26 +1,27 @@
 extends ../layout
 block content
-	form(method="GET" action="/users/logout")
-		button Se déconnecter
-	h1= title
-	br
-	br
-	h2 Pseudo
-	br
-	p= pseudo
-	br
-	h2 Nom
-	br
-	p= nom
-	br
-	h2 Prénom
-	br
-	p= prenom
-	br
-	h2 Email
-	br
-	p= email
-	br
-	h2 Adresse
-	br
-	p= adresse
+    h1 Profil
+
+
+
+
+
+    .row
+
+
+        form(method="GET" action="/users/logout")
+            button.btn.btn-primary Se déconnecter
+
+        .col-md-2
+            p Pseudo : #{pseudo}
+        .col-md-2
+            p Nom : #{nom}
+        .col-md-2
+            p Préson : #{prenom}
+        .col-md-2
+            p E-mail : #{email}
+        .col-md-2
+            p Adresse :  #{adresse}
+
+
+

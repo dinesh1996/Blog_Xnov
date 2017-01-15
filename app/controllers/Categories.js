@@ -15,7 +15,7 @@ const Categories = {
     getCategory: function (req, res) {
       sess = req.session.regenerate(function(err){if(err)throw err;});
       if(sess.name == null || sess.name == "undefined"){
-        res.redirect('/login');
+        res.redirect('/users/login');
       }
         Category.find({activated: true}, function (err, categories) {
             Article.find({id: categories.articles}, function (err, article) {
@@ -169,7 +169,7 @@ const Categories = {
     preupdate: function (req, res) {
         sess = req.session.regenerate(function(err){if(err)throw err;});
         if(sess.name == null || sess.name == "undefined" && sess.status != 1){
-          res.redirect('/login');
+          res.redirect('/users/login');
         }
         Category.findById(req.params.id, function (err, category) {
             res.render('categories/UpdateCategory', {title: "category", category: category});
@@ -180,6 +180,10 @@ const Categories = {
 
     update: function (req, res) {
 
+        sess = req.session.regenerate(function(err){if(err)throw err;});
+        if(sess.name == null || sess.name == "undefined" && sess.status != 1){
+          res.redirect('/users/login');
+        }
         Category.findById(req.params.id, function (err, category) {
             if (err) throw err;
 

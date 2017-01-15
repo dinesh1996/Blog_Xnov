@@ -3,27 +3,41 @@ extends ../layout
 block content
     h1= title
 
-    pre=datatoread
-    p Welcome to #{title}
 
 
 
 
 
-    form(method='POST' action="/articles/update/" +  article._id + "?_method=PUT")
-
-
-        each category in categories
-            input(type='radio', name='category', value=category.title)
-            =category.title
-        input(type="text" name="title" placeholder="title" value= article.title)
-        textarea(name="contents" rows='4', cols='50' placeholder="Content")
-            =article.contents
-
-
-        button(type="submit") valider
 
 
 
+    .row
 
+        form(method='POST' action="/articles/update/" + article._id + "?_method=PUT")
+            .col-md-12
+                .form-group
+                    br
+                    label.sr-only Thématique
+                    select.form-control.input-lg(name='category')
+
+                        each category in categories
+                            option #{category.title}
+
+            .col-md-12
+                .form-group
+                    label.sr-only(for='name') Titre
+                    input#name.form-control.input-lg(placeholder='Titre', type='text', name='title',value=article.title)
+
+            .col-md-12
+                .form-group
+                    label.sr-only(for='message') Contenu
+                    textarea#message.form-control.input-lg(placeholder='Message', rows='3', name="contents")
+                        =article.contents
+
+
+
+            .col-md-12
+                .form-group
+                    button.btn.btn-primary(type="submit") valider
+                    a.btn.btn-primary(href='../') Retour à la liste complet
 

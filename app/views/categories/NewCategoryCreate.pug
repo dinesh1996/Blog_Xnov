@@ -1,15 +1,15 @@
 extends ../layout
 
 block content
-    h1 Welcome to Creation de category
-
- 
-
-
+    h1.createh1 Création d'une thématique
+    .row
 
         form(method='POST')
-            input(type="text" name="title" placeholder="title")
-            button(type="submit") valider
+            .col-md-12
+                .form-group
+                    label.sr-only Titre
+                    input.form-control.input-lg(placeholder='Titre', type='text', name='title')
 
-
-
+            .col-md-12
+                .form-group
+                    button.btn.btn-primary(type="submit") valider
