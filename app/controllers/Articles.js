@@ -1,8 +1,8 @@
 "use strict";
 const Article = require('../models/Article');
 const Category = require('../models/Category');
+const session = require('./Users');
 let sess;
-
 const Articles = {
     /**
      * @param req La requête entrante
@@ -10,6 +10,8 @@ const Articles = {
      */
 
     index: function (req, res) {
+      sess = req.session.reload(function(err){if(err)throw err;});
+      console.log(sess);
         Article.find({}, function (err, articles) {
             if (err) throw err;
 
@@ -30,7 +32,8 @@ const Articles = {
 
             Promise.all(Q).then(data => {
                 res.render('articles/index', {
-                    title: "articles", data: data
+                    title: "articles",
+                    data: data
                 });
             });
         }).sort({_id: -1});
@@ -38,7 +41,11 @@ const Articles = {
 
     read: function (req, res) {
 
-
+      sess = req.session.reload(function (err) {
+          if (err){
+            console.log(err);
+          }
+      });
         Article.findById(req.params.id, function (err, article) {
 
 
@@ -52,17 +59,20 @@ const Articles = {
             });
             pro.then(datatoread => {
                 res.render('articles/ReadArticle', {
-                    title: "Reading Article", datatoread: datatoread
+                    title: "Reading Article",
+                    datatoread: datatoread,
+                    userName : sess.name
                 });
             });
         }).sort({_id: -1});
     },
 
+
     create: function (req, res) {
-        sess = req.session.regenerate(function (err) {
+        sess = req.session.reload(function (err) {
             if (err)throw err;
         });
-        if (sess.name == null || sess.name == "undefined") {
+        if (sess == null || sess.name == "undefined") {
             res.redirect('/users/login');
         } else {
             let nb;
@@ -108,7 +118,7 @@ const Articles = {
                                     title: req.body.title,
                                     contents: req.body.contents,
                                     category: cat,
-                                    createdBy: sess.pseudo,
+                                    createdBy: sess.firstName,
                                     createdOn: new Date(),
                                     changeOn: new Date()
                                 });
@@ -138,66 +148,22 @@ const Articles = {
                     }
                     ;
                 }
-              switch (nb) {
-                  case 1:
-                      console.log('Article failed');
-                      res.redirect('/articles/');
-                      break;
-                  case 0:
-                      console.log("add");
-                      let categoryUsed = req.body.category;
+                ;
+            });
 
-                      Category.findOne({title: categoryUsed}, function (err, cat) {
-                          console.log("  Etape5");
-
-                          if (err) throw err;
-                          console.log(cat);
-
-                          let article = new Article({
-                              title: req.body.title,
-                              contents: req.body.contents,
-                              category: cat,
-                              createdBy: sess.pseudo,
-                              createdOn: new Date(),
-                              changeOn: new Date()
-                          });
-                          // createdBy: req.session.createdBy
-
-                          console.log("  Etape6");
-                          console.log(article);
-                          article.save(function (err) {
-                              if (err) err;
-                              console.log(article);
-
-                              cat.articles.push(article);
-
-                              cat.save(function (err) {
-                                  if (err) throw err;
-                              });
-                          });
-                          console.log('Article added');
-                          res.redirect('/articles/');
-                      });
-                      break;
-
-                  default:
-                      console.log('Article failed');
-                      res.redirect('/articles/');
-                      break;
-              }
-
-          });
         }
-      
+        ;
+
     },
 
 
     preupdate: function (req, res) {
 
-        sess = req.session.regenerate(function (err) {
-            if (err)throw err;
+        sess = req.session.reload(function (err) {
+          console.log(err);
         });
-        if (sess.name == null || sess.name == "undefined") {
+        console.log(sess);
+        if (sess == null || sess == 'undefined') {
             res.redirect('/users/login');
         }
         Article.findById(req.params.id, function (err, article) {
@@ -210,7 +176,8 @@ const Articles = {
                 res.render('articles/UpdateArticle', {
                     title: "Update Article",
                     categories: categories,
-                    article: article
+                    article: article,
+                    userStatus : sess.status
                 });
                 // console.log({titleC: "categories", categories: categories,titleA: "article", article: article});
                 if (err) throw err;
@@ -227,13 +194,12 @@ const Articles = {
 
 
     update: function (req, res) {
-
-        sess = req.session.regenerate(function (err) {
-            if (err)throw err;
-        });
-        if (sess.name == null || sess.name == "undefined") {
-            res.redirect('/users/login');
-        }
+      sess = req.session.reload(function (err) {
+          if (err)throw err;
+      });
+      if (sess == null || sess == undefined) {
+          res.redirect('/users/login');
+      }
         Article.findById(req.params.id, function (err, article) {
             if (err) throw err;
 
@@ -314,8 +280,6 @@ const Articles = {
                     });
                 }
                 else {
-                    console.log('C est la merde ');
-
                     res.redirect("/articles/");
 
                 }
@@ -328,14 +292,14 @@ const Articles = {
 
     predelete: function (req, res) {
 
-        sess = req.session.regenerate(function (err) {
+        sess = req.session.reload(function (err) {
             if (err)throw err;
         });
         if (sess.name == null || sess.name == "undefined") {
             res.redirect('/users/login');
         }
         Article.findById(req.params.id, function (err, article) {
-            res.render('articles/DeleteArticle', {title: "article delate", article: article});
+            res.render('articles/DeleteArticle', {title: "article delate", article: article,userName:sess.name});
             if (err) throw err;
         });
     },

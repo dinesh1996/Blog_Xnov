@@ -12,7 +12,7 @@ const schema = new Schema({
     email: {type: String, required: true},
     mdp: {type: String, required: true},
     activated: {type: Boolean, default: true}, //1 = active ,,, 0 inactive
-    status: {type: Boolean, default: 1},// 1 = admin ,,,, 0 = user
+    status: {type: Boolean, default: true},// 1 = admin ,,,, 0 = user
     createdOn: {type:Date },
     password:{type: String },
     changeOn: {type: Date}

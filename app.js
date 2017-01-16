@@ -23,11 +23,10 @@ const app = express();
 app.set('trust proxy', 1);// trust first proxy
 app.use(session({
   secret: 'keyboard cat',
-  resave: false,
+  resave: true,
   saveUninitialized: false,
   cookie: {maxAge: 8600 * 7 },
   store: new MongoStore({url: 'mongodb://localhost/Xnov',
-   //ttl: 14 * 24 * 60 * 60,
 }),
  // autoRemove: 'native'
 }));

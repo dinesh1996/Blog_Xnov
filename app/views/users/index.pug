@@ -1,10 +1,65 @@
 extends ../layout
+block offline
+  li.active
+      a(href='/users/logout')
+          span
+              | Deconnexion
+              span.border
+
+  li
+      a(href='/articles/')
+          span
+              | Articles
+              span.border
+  li
+      a(href='/users/profil')
+          span
+              | Profil
+              span.border
+  li
+      a(href='/admin/categories/')
+          span
+              | Thématiques
+              span.border
+
+  li
+      a(href='elements.html')
+          span
+              | A propos
+              span.border
 block content
 
     h1= title
     p Welcome to #{title}
-    ul
-        each user in users
-            li= user.name
-            li= user.firstName
-            li= user.activated
+
+              .row
+
+                each user in users
+                    .col-md-4
+                        p
+                            | Prenom: #{user.firstName}
+
+
+
+                    .col-md-4
+                        if user.status == true
+                          p
+                            | status: Administrateur
+                        if user.status == false
+                          p
+                            | status: utilisateur
+
+                    .col-md-4
+                        P
+                            | Nom : #{user.name}
+
+
+                    if user.status == false
+                      .col-md-12
+                          a.btn.btn-primary(href='/users/promote/' + user.id) Promouvoir
+
+                    if user.status == true
+                      .col-md-12
+                          a.btn.btn-primary(href='/users/demote/' + user.id ) Redescendre au status d'utilisateur classique
+                .col-md-3
+                    a.btn.btn-primary(href='/users/') Retour à la liste complet

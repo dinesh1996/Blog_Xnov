@@ -48,6 +48,7 @@ const Comments = {
     },
 
     read: function (req, res) {
+      sess = req.session.regenerate(function(err){if(err)throw err;});
       if(sess != null){
         Category.findById(req.params.id, function (err, cat) {
             if (err) throw err;
@@ -70,7 +71,7 @@ const Comments = {
             });
         }).sort({_id: -1});
       }else{
-        res.redirect('/login');
+        res.redirect('/users/login');
       }
     },
 
@@ -78,7 +79,7 @@ const Comments = {
       if(sess != null){
           res.render('users/comments/NewCommentCreate');
       }else {
-          res.redirect('/login');
+          res.redirect('/users/login');
       }
 
     },

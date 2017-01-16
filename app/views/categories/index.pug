@@ -2,20 +2,13 @@ extends ../layout
 
 block content
 
-
-    .col-md-12
-        h1= title
-        a.btn.btn-primary(href='./create/'  ) Nouvelle Thématique
-
-
-
-
-
-
+    if userStatus == admin
+      .col-md-12
+          h1= title
+          a.btn.btn-primary(href='./create/'  ) Nouvelle Thématique
 
 
     each categorie,i in data
-
 
         .row
 
@@ -39,12 +32,3 @@ block content
 
             .col-md-3
                 a.btn.btn-primary(href='./read/' + categorie._id ) Voir les détails de la categorie
-
-
-
-
-
-
-
-
-

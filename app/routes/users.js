@@ -33,7 +33,8 @@ router.delete('/delete/:id', users.delete);
 
 //Routes en methode PUT
 router.put('/update/',users.update);
-
+router.get('/promote/:id',users.promoteUserAdmin);
+router.get('/demote/:id',users.demoteAdmin);
 ////Routes en methode Post
 router.post('/login', users.logIn);
 router.post('/signup', users.create);

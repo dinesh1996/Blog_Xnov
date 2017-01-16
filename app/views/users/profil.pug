@@ -1,4 +1,28 @@
 extends ../layout
+
+block offline
+  li.active
+      a(href='/users/logout')
+          span
+              | Deconnexion
+              span.border
+
+  li
+      a(href='/articles/')
+          span
+              | Articles
+              span.border
+  li
+      a(href='/admin/categories/')
+          span
+              | Thématiques
+              span.border
+
+  li
+      a(href='elements.html')
+          span
+              | A propos
+              span.border
 block content
     h1 Profil
 
@@ -22,6 +46,3 @@ block content
             p E-mail : #{email}
         .col-md-2
             p Adresse :  #{adresse}
-
-
-

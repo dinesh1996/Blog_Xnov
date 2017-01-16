@@ -9,9 +9,6 @@ const Categories = {
      * @param req La requête entrante
      * @param res Ce qui est renvoyé au navigateur
      */
-
-
-
     getCategory: function (req, res) {
       sess = req.session.regenerate(function(err){if(err)throw err;});
       if(sess.name == null || sess.name == "undefined"){
@@ -25,6 +22,7 @@ const Categories = {
                 res.render('articles/NewArticleCreate', {
                     title: "Create Article ",
                     categories: categories,
+                    userName: sess.name,
                     article
                 });
             });
@@ -36,6 +34,7 @@ const Categories = {
 
     index: function (req, res) {
 
+      sess = req.session.regenerate(function(err){if(err)throw err;});
 
         Category.find({}, function (err, categories) {
             if (categories.articles != null) {
@@ -82,13 +81,13 @@ const Categories = {
                 Promise.all(Q).then(data => {
 
                     res.render('categories/', {
-                        title: "categories", data: data
+                        title: "categories", data: data,userStatus:sess.status
                     });
                 });
             } else {
 
                 res.render('categories/', {
-                    title: "categories", data: categories
+                    title: "categories", data: categories,userStatus:sess.status
 
                 });
             }
@@ -140,6 +139,10 @@ const Categories = {
 
 
     create: function (req, res) {
+      sess = req.session.regenerate(function(err){if(err)throw err;});
+      if(sess.name == null || sess.name == "undefined" && sess.status != 1){
+        res.redirect('/users/login');
+      }
         let category = new Category({
             title: req.body.title,
 
@@ -181,7 +184,7 @@ const Categories = {
     update: function (req, res) {
 
         sess = req.session.regenerate(function(err){if(err)throw err;});
-        if(sess.name == null || sess.name == "undefined" && sess.status != 1){
+        if(sess == null || sess == "undefined" && sess.status != 1){
           res.redirect('/users/login');
         }
         Category.findById(req.params.id, function (err, category) {

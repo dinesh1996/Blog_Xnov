@@ -4,7 +4,7 @@ const User = require('../models/User');
 const crypto = require('crypto');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-
+const Article = require('../models/Article');
 let sess;
 
 const Users = {
@@ -13,14 +13,29 @@ const Users = {
      * @param res Ce qui est renvoyé au navigateur
      */
      index: function (req, res) {
-         User.find({}, function (err, users) {
+       console.log(sess);
+       if(sess == null ||sess ==  "undefined"){
+         res.redirect('/users/login');
+       }
+        if(sess.status == true){
+	         User.find({}, function (err, users) {
              if (err) throw err;
              res.render('users/index', {title: "users", users: users});
          });
+	      }
+      	if(sess.status == false){
+      		res.redirect('/articles/');
+      	}
 
      },
      getSignUp: function (req, res) {
+       if(sess == null){
          res.render('users/NewUserCreate');
+       }
+       if(sess != null){
+         res.redirect('/users/profil');
+       }
+
      },
      //Crée un utilisateur
      create: function (req, res) {
@@ -150,8 +165,7 @@ const Users = {
                  email: sess.email,
                  pseudo: sess.pseudo
              });
-             console.log(sess.name);
-
+             console.log(sess.status);
          } else {
              res.redirect('/users/login');
              console.log("Il n'y a rien.");
@@ -183,8 +197,15 @@ const Users = {
  			}
 
  			if(req.body.firstName){
+        Article.find({createdBy:user.firstName},function(err,articles){
+          for(index = 0;index<articles.length;index++){
+            articles.createdBy = req.body.firstName;
+
+          }
+          articles.save(function(err){if(err)throw err;});
+        });
  				user.firstName =  req.body.firstName;
- 				sess.firstName = user.firstName
+ 				sess.firstName = user.firstName;
  			}
 
  			if(req.body.email){
@@ -209,7 +230,9 @@ const Users = {
  				if (err) throw err;
  				console.log('User successfully updated!');
  				res.redirect("/users/profil");
-
+        sess.save(function (err) {
+   				if (err) throw err;
+        });
  			});
 
  		});
@@ -245,7 +268,46 @@ const Users = {
 
            });
 
-         }
-};
+         },
+	promoteUserAdmin:function(req,res){
+  		if(sess.status == true){
+  			User.findById(req.params.id,function(err,user){
+  				if (err) throw err;
+  				user.status = true;
+  				user.save(function(err){
+  				if(err) throw err;
+  				res.redirect('/users/');
+  				});
+  			});
+  		}if(sess.status == false ){
+  			res.redirect('/articles/');
+  		} if(sess.name == null || sess.name == 'undefined'){
+  			res.redirect('/users/login');
+  		}
+	},
+	demoteAdmin:function(req,res){
+    		if(sess.status == true){
+    			User.findById(req.params.id,function(err,user){
+    				if (err) throw err;
+    				user.status = false;
+            console.log(user.firstName +"est devenu" + user.status);
+    				user.save(function(err){
+    				if(err) throw err;
+            console.log(user.firstName +"est devenu" + user.status);
+    				res.redirect('/users/');
+    				});
+    			});
+    		}
+        if(sess.status == false ){
+    			res.redirect('/articles/');
+    		} if(sess.name == null || sess.name == 'undefined'){
+    			res.redirect('/users/login');
+    	}
+  },
 
+
+};
+module.exports.getSession = function(sess){
+  return sess;
+};
 module.exports = Users;
