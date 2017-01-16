@@ -1,5 +1,27 @@
 extends ../layout
+block offline
+  li.active
+      a(href='/users/logout')
+          span
+              | Deconnexion
+              span.border
 
+  li
+      a(href='/articles/')
+          span
+              | Articles
+              span.border
+  li
+      a(href='/admin/categories/')
+          span
+              | Thématiques
+              span.border
+
+  li
+      a(href='elements.html')
+          span
+              | A propos
+              span.border
 block content
     h1= title
 
@@ -13,5 +35,3 @@ block content
             .col-md-12
                 .form-group
                     a.btn.btn-primary(type="submit") valider
-
-

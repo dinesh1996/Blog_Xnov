@@ -1,7 +1,7 @@
 extends ../layout
 
 block offline
-  if userStatus == false
+  if userStatus == true
     li.active
         a(href='/users/logout')
             span

@@ -72,7 +72,7 @@ const Users = {
                          address: req.body.adress,
                          mdp: crypto.createHash('sha1').update(req.body.mps).digest('hex'),
                          createdOn: new Date(),
-                         status: true,
+                         status: false,
                          activated: true
                      });
 

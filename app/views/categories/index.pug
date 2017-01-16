@@ -2,7 +2,7 @@ extends ../layout
 
 block content
 
-    if userStatus == admin
+    if userStatus == true
       .col-md-12
           h1= title
           a.btn.btn-primary(href='./create/'  ) Nouvelle Thématique

@@ -3,6 +3,8 @@
 
 const Category = require('../models/Category');
 const Article = require('../models/Article');
+const session = require('./Users');
+
 let sess;
 const Categories = {
     /**
@@ -22,7 +24,7 @@ const Categories = {
                 res.render('articles/NewArticleCreate', {
                     title: "Create Article ",
                     categories: categories,
-                    userName: sess.name,
+                    userStatus: sess.status,
                     article
                 });
             });
@@ -140,7 +142,7 @@ const Categories = {
 
     create: function (req, res) {
       sess = req.session.regenerate(function(err){if(err)throw err;});
-      if(sess.name == null || sess.name == "undefined" && sess.status != 1){
+      if(sess.name == null || sess.name == "undefined" && sess.status != true){
         res.redirect('/users/login');
       }
         let category = new Category({
@@ -171,7 +173,7 @@ const Categories = {
 
     preupdate: function (req, res) {
         sess = req.session.regenerate(function(err){if(err)throw err;});
-        if(sess.name == null || sess.name == "undefined" && sess.status != 1){
+        if(sess.name == null || sess.name == "undefined" && sess.status != true){
           res.redirect('/users/login');
         }
         Category.findById(req.params.id, function (err, category) {
@@ -184,7 +186,7 @@ const Categories = {
     update: function (req, res) {
 
         sess = req.session.regenerate(function(err){if(err)throw err;});
-        if(sess == null || sess == "undefined" && sess.status != 1){
+        if(sess == null || sess == "undefined" && sess.status != true){
           res.redirect('/users/login');
         }
         Category.findById(req.params.id, function (err, category) {
@@ -215,7 +217,7 @@ const Categories = {
     predelete: function (req, res) {
 
       sess = req.session.regenerate(function(err){if(err)throw err;});
-      if(sess.name == null || sess.name == "undefined" && sess.status != 1){
+      if(sess.name == null || sess.name == "undefined" && sess.status != true){
         res.redirect('/login');
       }
         Category.findById(req.params.id, function (err, category) {
