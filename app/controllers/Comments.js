@@ -75,20 +75,15 @@ const Comments = {
     },
 
     getNewCommentCreate:function(req,res){
-      if(sess != null){
+
           res.render('users/comments/NewCommentCreate');
-      }else {
-          res.redirect('/login');
-      }
+
 
     },
 
     create: function (req, res) {
-      sess = req.session.regenerate(function(err){if(err)throw err;});
-      if(sess.name == null || sess.name == "undefined" && sess.status != 1){
-        res.redirect('/login');
-      }
-      if(sess != null){
+
+
         console.log("  Etape0");
         Article.findById(req.params.id, function (err, article) {
             console.log("  Etape1");
@@ -100,7 +95,8 @@ const Comments = {
                 content : req.body.content,
                 article: article,
                 createdOn: new Date(),
-                changeOn: new Date()
+                changeOn: new Date(),
+                createdBy: "Moi!!!"
             });
             // createdBy: req.session.createdBy
 
@@ -118,9 +114,7 @@ const Comments = {
             res.redirect('/articles/');
         });
 
-      }else{
-        res.redirect('/login/');
-      }
+
     },
 /*
 

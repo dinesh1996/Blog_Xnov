@@ -2,7 +2,6 @@ extends ../layout
 
 block content
     h1= title
-    br
 
 
 
@@ -11,63 +10,77 @@ block content
     .row
 
 
+        .col-md-9
+
+            a.btn.btn-primary(href='/users/article/' + datatoread[0]._id ) Ajouter un commantaire
+
+        .col-md-3
+            a.btn.btn-primary(href='/articles/') Retour à la liste completR
+
+
         .col-md-4
             p
-                | title: #{datatoread.title}
+                | Title: #{datatoread[0].title}
 
 
 
         .col-md-4
             p
-                | actived: #{datatoread.activated}
+                | Actived: #{datatoread[0].activated}
+
+
+
 
 
         .col-md-4
             P
-                | in category on : #{datatoread.category.title}
-
-
-
-        .col-md-4
-            P
-                | created by: #{datatoread.createdBy}
+                | Created by: #{datatoread[0].createdBy}
 
 
 
         .col-md-4
             p
-                | changed on : #{datatoread.changeOn}
+                | Changed on : #{datatoread[0].changeOn}
 
 
         .col-md-4
             p
-                | created on: #{datatoread.createdOn}
-
+                | Created on: #{datatoread[0].createdOn}
 
         .col-md-12
             p
-                | content: #{datatoread.contents}
+                | Content: #{datatoread[0].contents}
                 br
 
 
 
 
-        .col-md-3
+        each p,i in datatoread[0].comments
 
-            a.btn.btn-primary(href='../update/' + datatoread._id ) Update
+            .col-md-12
+                h3 Commentaire numéro #{i+1}
+                .col-md-6
+                    p
+                        | Content: #{p.content}
+                .col-md-6
+                    p
+                        | Ecrit par : #{p.createdBy}
 
-        .col-md-3
-            a.btn.btn-primary(href='../delete/' + datatoread._id ) Désactiver  l'article
 
 
-        .col-md-3
-            form.formr(method="POST" action="../reactive/" + datatoread._id + "?_method=POST")
+        .col-md-4
+
+            a.btn.btn-primary(href='../update/' + datatoread[0]._id ) Update
+
+        .col-md-4
+            a.btn.btn-primary(href='../delete/' + datatoread[0]._id ) Désactiver  l'article
+
+
+        .col-md-4
+            form.formr(method="POST" action="../reactive/" + datatoread[0]._id + "?_method=POST")
                 button.btn.btn-primary(type="submit") Activer  l'article
 
 
-
-        .col-md-3
-            a.btn.btn-primary(href='/articles/') Retour à la liste complet
 
 
 

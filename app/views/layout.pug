@@ -1,7 +1,8 @@
 doctype
 html( lang="fr" )
     head
-        title= title
+        title
+            block titre
         meta( charset='utf-8' )
         meta(http-equiv='X-UA-Compatible', content='IE=edge' )
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
@@ -39,18 +40,18 @@ html( lang="fr" )
                     #fh5co-navbar.navbar-collapse.collapse
                         ul.nav.navbar-nav.navbar-right
                             li.active
-                                a(href='/users/login')
+                                a(href='/users/login/')
                                     span
                                         | Connexion
                                         span.border
                             li
-                                a(href='/users/signup')
+                                a(href='/users/signup/')
                                     span
                                         | Inscription
                                         span.border
 
                             li
-                                a(href='/users/profil')
+                                a(href='/users/profil/')
                                     span
                                         | Profile
                                         span.border
@@ -65,11 +66,19 @@ html( lang="fr" )
                                         | Thématiques
                                         span.border
 
+
+                            li
+                                a(href='/users/articles/allcomments')
+                                    span
+                                        | Commentaires
+                                        span.border
+
                             li
                                 a(href='elements.html')
                                     span
                                         | A propos
                                         span.border
+
 
 
 
@@ -83,9 +92,9 @@ html( lang="fr" )
                     .row
                         .col-md-6.col-sm-6
                             .fh5co-footer-widget
-                                h2.fh5co-footer-logo Booster
+                                h2.fh5co-footer-logo Blog Xnov
                                 p
-                                    | Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.
+                                    |  Un site crée par des bachelor 2
                             .fh5co-footer-widget
                                 ul.fh5co-social
                                     li
@@ -103,60 +112,38 @@ html( lang="fr" )
                                     li
                                         a(href='#')
                                             i.icon-youtube
-                        .col-md-2.col-sm-6
-                            .fh5co-footer-widget.top-level
-                                h4.fh5co-footer-lead Company
-                                ul
-                                    li
-                                        a(href='#') About
-                                    li
-                                        a(href='#') Contact
-                                    li
-                                        a(href='#') News
-                                    li
-                                        a(href='#') Support
-                                    li
-                                        a(href='#') Career
-                        .visible-sm-block.clearfix
-                        .col-md-2.col-sm-6
-                            .fh5co-footer-widget.top-level
-                                h4.fh5co-footer-lead Features
-                                ul.fh5co-list-check
-                                    li
-                                        a(href='#') Lorem ipsum dolor.
-                                    li
-                                        a(href='#') Ipsum mollitia dolore.
-                                    li
-                                        a(href='#') Eius similique in.
-                                    li
-                                        a(href='#') Aspernatur similique nesciunt.
-                                    li
-                                        a(href='#') Laboriosam ad commodi.
-                        .col-md-2.col-sm-6
-                            .fh5co-footer-widget.top-level
-                                h4.fh5co-footer-lead Products
-                                ul.fh5co-list-check
-                                    li
-                                        a(href='#') Lorem ipsum dolor.
-                                    li
-                                        a(href='#') Ipsum mollitia dolore.
-                                    li
-                                        a(href='#') Eius similique in.
-                                    li
-                                        a(href='#') Aspernatur similique nesciunt.
-                                    li
-                                        a(href='#') Laboriosam ad commodi.
+                        .col-md-6.col-sm-6
+                            .fh5co-footer-widget
+                                h4.fh5co-footer-lead Plan du site
+                                .fh5co-footer-leain
+                                    ul
+
+                                        li
+                                            a(href='/users/login/') Connexion
+                                        li
+                                            a(href='/users/signup/') Inscription
+                                        li
+                                            a(href='/users/profil/') Profile
+                                        li
+                                            a(href='/articles/') Articles
+                                        li
+                                            a(href='/admin/categories/') Thématiques
+                                        li
+                                            a(href='/users/articles/allcomments') Commentaires
+                                        li
+                                            a(href='elements.html') A propos
+
+
+
                     .row.fh5co-row-padded.fh5co-copyright
                         .col-md-5
                             p
                                 small
-                                    | © Booster Free HTML5 Template. All Rights Reserved.
+                                    | © Blog Xnov. All Rights Reserved.
                                     br
                                     | Designed by:
-                                    a(href='http://freehtml5.co/', target='_blank') FREEHTML5.co
-                                    |  | Images by:
-                                    a(href='http://deathtothestockphoto.com/', target='_blank') DeathToTheStockPhoto
-
+                                    br
+                                    | Moustanir Soulé-Ali, Julien Lapa, Guillaume Arsac, Dinesh Salhotra
 
 
 

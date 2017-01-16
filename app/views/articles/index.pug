@@ -18,37 +18,35 @@ block content
 
             .col-md-12
 
-                h2 Numero d'article #{1+i}
-            .col-md-4
-                p
-                    | Id: #{article._id}
+                h2 Numero d'article #{1 + i}
 
-            .col-md-4
+
+            .col-md-2
                 p
                     | Titre : #{article.title}
 
 
-            .col-md-4
+            .col-md-2
                 p
                     |  Activation : #{article.activated}
 
 
 
-            .col-md-6
+            .col-md-2
                 p
                     |  Date de création: #{article.createdOn}
 
 
 
-            .col-md-6
+            .col-md-2
                 p
                     | Date de mis à jour : #{article.changeOn}
 
 
 
-            .col-md-6
+            .col-md-2
                 p
                     |  Dans la catégorie: #{article.category.title}
-            .col-md-8
+            .col-md-2
             br
-            a.btn.btn-primary(href='./read/'+article._id ) Voir l'article
+            a.btn.btn-primary(href='./read/' + article._id ) Voir l'article

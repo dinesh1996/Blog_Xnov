@@ -1,6 +1,7 @@
 "use strict";
 const Article = require('../models/Article');
 const Category = require('../models/Category');
+const Comment = require('../models/Comment');
 let sess;
 
 const Articles = {
@@ -40,7 +41,7 @@ const Articles = {
 
 
         Article.findById(req.params.id, function (err, article) {
-
+/*
 
             let pro = new Promise((resolve, reject) => {
                 Category.findById(article.category, function (err, c) {
@@ -56,6 +57,51 @@ const Articles = {
                 });
             });
         }).sort({_id: -1});
+
+
+
+        */
+
+                    if (err) throw err;
+
+                    const Q = [];
+
+
+
+
+
+
+
+            Q.push(new Promise((resolve, reject) => {
+                Category.findById(article.category, function (err, c) {
+                    if (err) throw err;
+                    article.category = c;
+                    console.log(article.category);
+                    resolve(article);
+                });
+            }));
+
+
+
+                    for (let i = 0; i < article.comments.length; i++) {
+                        Q.push(new Promise((resolve, reject) => {
+
+                            Comment.findById(article.comments[i], function (err, c) {
+                                if (err) throw err;
+                                article.comments[i] = c;
+                                //console.log(articles[i].category);
+                                resolve(article.comments);
+
+                            });
+                        }));
+                    }
+
+                    Promise.all(Q).then(datatoread => {
+                        res.render('articles/ReadArticle', {
+                            title: "Reading Article", datatoread: datatoread
+                        });
+                    });
+                }).sort({_id: -1});
     },
 
     create: function (req, res) {

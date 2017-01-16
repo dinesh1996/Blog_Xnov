@@ -1,8 +1,42 @@
 extends ../../layout
 block content
     h1= title
-    p Welcome to #{title}
+    a.btn.btn-primary(href='/articles/') Retour à la listes des artilces
 
 
-    pre=data
+
+
+    each databis,i in data
+
+
+
+        .row
+
+            .col-md-12
+
+                h2 Numero de commentaire #{1 + i}
+
+
+            .col-md-5
+                p
+                    | Nom de l'article :  #{databis.article.title}
+
+
+
+
+
+
+
+            .col-md-3
+                p
+                    | Ecrie par : #{databis.createdBy}
+
+
+
+            .col-md-4
+
+                a.btn.btn-primary(href='/articles/read/' + databis.article._id ) Voir l'article
+            .col-md-12
+                p
+                    | Contenu du commentaire : #{databis.content}
 

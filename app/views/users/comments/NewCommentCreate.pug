@@ -1,14 +1,16 @@
 extends ../../layout
-
+block titre
+    | Commentaire
 block content
-    h1= title
-    p Welcome to Creation comment
+    h1.createh1 Création d'une Commentaire
+    .row
 
+        form(method='POST')
+            .col-md-12
+                .form-group
+                    label.sr-only Contenu
+                    input.form-control.input-lg(type='text', name='content')
 
-
-
-    form(method='POST')
-        input(type="text" name="content" placeholder="content")
-        button(type="submit") valider
-
-
+            .col-md-12
+                .form-group
+                    button.btn.btn-primary(type="submit") valider

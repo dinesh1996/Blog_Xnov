@@ -3,26 +3,67 @@ block content
 
 
     h1 Inscription
-    form(method='POST' action="/users/signup")
-          input(type="text" name="name" placeholder="Entrez votre nom")
-          br
-          br
-          input(type="text" name="firstName" placeholder="Entrez votre prénom")
-          br
-          br
-          input(type="text" name="pseudo" placeholder="Entrez votre pseudo")
-          br
-          br
-          input(type="text" name="adress" placeholder="Entrez votre adresse")
-          br
-          br
-          input(type="password" name="mps" placeholder="Entrez votre mot de passe")
-          br
-          br
-          input(type="password" name="confMps" placeholder="Réécrivez votre mot de passe")
-          br
-          br
-          input(type="email" name="email" placeholder="Entrez votre email")
-          br
-          br
-          button valider
+    .row
+
+        form(method='POST' action="/users/signup")
+
+            .col-md-12
+                .form-group
+                    label.sr-only(for='name') Nom
+                    input#name.form-control.input-lg(type='text', name='firstName')
+
+
+
+            .col-md-12
+                .form-group
+                    label.sr-only Prénom
+                    input.form-control.input-lg(type='text', name='name')
+
+
+
+
+            .col-md-12
+                .form-group
+                    label.sr-only Pseudo
+                    input.form-control.input-lg(type='text', name='pseudo')
+
+
+
+
+            .col-md-12
+                .form-group
+                    label.sr-only Adresse Postal
+                    input.form-control.input-lg(type='text', name='adress')
+
+
+
+
+
+
+            .col-md-12
+                .form-group
+                    label.sr-only E-mail
+                    input.form-control.input-lg(type='email', name='email')
+
+
+
+
+
+            .col-md-12
+                    .form-group
+                        label.sr-only(for='password') Mot de passe
+                        input#password.form-control.input-lg( type='password', name="mps")
+
+
+
+            .col-md-12
+                .form-group
+                    label.sr-only(for='passwordv')  Taper encore une fois votre mot de passe
+                    input#passwordv.form-control.input-lg( type='password', name="confMps")
+
+
+
+            .col-md-12
+                    .form-group
+                        button.btn.btn-primary(type="submit") Valider
+

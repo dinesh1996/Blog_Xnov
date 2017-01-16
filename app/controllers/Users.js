@@ -40,13 +40,13 @@ const Users = {
     //Connexion
     logIn: function (req, res) {
         if (req.body.pseudo && req.body.mdp) {
+            console.log("etap1");
 
             let mdphash = crypto.createHash('sha1').update(req.body.mdp).digest('hex');
-            User.findOne({
-                pseudo: req.body.pseudo,
-                mdp: mdphash
-            }, 'name id firstName email pseudo address ', function (err, user) {
+            User.findOne({ pseudo:req.body.pseudo, mdp: mdphash}, 'name id firstName email pseudo address', function (err, user) {
                 if (err) throw (err);
+                console.log("etap2");
+                console.log(user);
                 if (user) {
                     sess = req.session;
                     sess.name = user.name;
@@ -57,17 +57,20 @@ const Users = {
                     sess.userID = user.id;
                     sess.save(function (err) {
                         if (err) throw (err);
+                        console.log("etap3");
                         res.redirect('/users/profil');
                         console.log(req.session);
                         console.log('Connexion en cours');
                         console.log("Connexion réussie");
                     });
                 } else {
+                    console.log("etap4");
                     res.send('Echec de la connexion');
                     res.redirect('/login');
                 }
             });
         } else {
+            console.log("etap5");
             res.send('Champs manquants');
             res.redirect('/login');
         }

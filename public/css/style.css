@@ -68,8 +68,6 @@ h1 {
     text-align: center;
 }
 
-
-
 mark {
     background: #ff0;
     color: #000;
@@ -3044,10 +3042,9 @@ input[type="search"] {
     margin-bottom: 30px;
 }
 
-.formr{
+.formr {
 
-
-display: inline-block;
+    display: inline-block;
 }
 
 .radio, .checkbox {
@@ -7876,6 +7873,12 @@ pre {
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 20px;
+    text-align: right;
+}
+
+.fh5co-footer-leain {
+
+    text-align: right;
 }
 
 #fh5co-footer .fh5co-footer-logo {

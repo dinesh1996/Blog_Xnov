@@ -35,6 +35,7 @@ router.put('/update/:id', users.update);
 
 ////Routes en methode Post
 router.post('/login', users.logIn);
+
 router.post('/signup', users.create);
 router.post('/article/:id', comment.create);
 router.post('/login/forgot', function (req, res, next) {
